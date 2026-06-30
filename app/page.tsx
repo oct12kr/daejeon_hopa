@@ -647,7 +647,7 @@ export default function Home() {
           </div>
 
           {/* 우측 */}
-          <div className="relative p-8 md:p-12 rounded-[28px] border border-white/[0.05] bg-white/[0.02] backdrop-blur-xl shadow-[0_8px_32px_rgba(0,0,0,0.4)] transition-transform duration-[700ms] hover:-translate-y-2 hover:shadow-[0_20px_60px_rgba(212,175,55,0.1)] group/card">
+          <div className="relative p-8 md:p-12 rounded-[28px] border border-white/[0.05] bg-white/[0.02] backdrop-blur-xl shadow-[0_8px_32px_rgba(0,0,0,0.4)] transition-transform duration-[700ms] hover:-translate-y-2 hover:shadow-[0_20px_60px_rgba(212,175,55,0.1)] group/card w-full lg:max-w-[520px] lg:ml-auto mt-16 lg:mt-0">
             
             {/* Gold Accent Line */}
             <div className="absolute top-0 left-12 right-12 h-[1px] bg-gradient-to-r from-transparent via-[#d4af37]/30 to-transparent" />
