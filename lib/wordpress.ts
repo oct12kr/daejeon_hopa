@@ -1,5 +1,5 @@
-// TODO: 새 워드프레스 API URL로 교체하세요
-const WP_REST_URL = '';
+// 워드프레스 API URL (환경변수에서 읽어옴)
+const WP_REST_URL = process.env.NEXT_PUBLIC_WORDPRESS_API_URL || 'https://wordpress-1628102-6522287.cloudwaysapps.com/wp-json/wp/v2';
 
 export type BlogPostSummary = {
   id: number;
