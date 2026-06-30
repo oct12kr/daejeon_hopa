@@ -592,53 +592,35 @@ export default function Home() {
           {/* 좌측 */}
           <div className="flex flex-col items-start">
             <p className="text-[10px] md:text-xs font-semibold uppercase tracking-[0.4em] text-[#d4af37]">
-              Final Step
+              Why TOMBA
             </p>
             
             <h2 className="mt-6 text-4xl md:text-5xl lg:text-6xl font-black text-white tracking-tighter leading-[1.2] break-keep">
-              당신에게 맞는
+              왜 많은 고객이
               <br />
-              최고의 시간을
-              <br className="md:hidden" />준비합니다.
+              대전 톰바를 선택할까요?
             </h2>
             
             <p className="mt-8 text-sm md:text-base text-white/60 font-light tracking-wide leading-loose">
-              처음 방문하시는 고객부터
+              편안한 공간,
               <br />
-              오랜 단골 고객까지
+              품격 있는 서비스,
+              <br />
+              그리고 프라이빗한 분위기.
               <br /><br />
-              방문 목적과 분위기에 맞춰
+              유진실장이
               <br />
-              유진실장이 직접
+              처음부터 끝까지
               <br />
-              최적의 공간을 안내해드립니다.
+              직접 관리합니다.
             </p>
-
-            <div className="w-16 h-[1px] bg-gradient-to-r from-[#d4af37]/60 to-transparent my-10" />
-
-            {/* Premium Check List */}
-            <ul className="space-y-5 text-sm md:text-base text-white/80 font-light tracking-wide">
-              {[
-                "프라이빗 맞춤 안내",
-                "방문 목적별 공간 추천",
-                "실시간 예약 가능",
-                "친절한 1:1 응대"
-              ].map((item) => (
-                <li key={item} className="flex items-center gap-4">
-                  <span className="flex items-center justify-center w-5 h-5 rounded-full bg-[#d4af37]/10 text-[#d4af37] text-[10px]">
-                    ✔
-                  </span>
-                  {item}
-                </li>
-              ))}
-            </ul>
 
             <a 
               href={phoneHref}
               className="mt-14 group relative inline-flex flex-col items-center justify-center px-12 py-5 overflow-hidden rounded-full bg-[#d4af37]/10 border border-[#d4af37]/50 backdrop-blur-md transition-all duration-[500ms] hover:bg-[#d4af37]/20 hover:border-[#d4af37] hover:shadow-[0_0_40px_rgba(212,175,55,0.3)] hover:-translate-y-1"
             >
               <span className="relative text-xs font-semibold tracking-[0.3em] text-[#d4af37]/80 group-hover:text-white/80 transition-colors duration-[500ms] mb-2">
-                유진실장 다이렉트 예약
+                유진실장 예약문의
               </span>
               <span className="relative text-3xl md:text-4xl font-black tracking-wider text-[#d4af37] group-hover:text-white transition-colors duration-[500ms]">
                 010.9599.6174
@@ -646,37 +628,35 @@ export default function Home() {
             </a>
           </div>
 
-          {/* 우측 */}
-          <div className="relative p-8 md:p-12 rounded-[28px] border border-white/[0.05] bg-white/[0.02] backdrop-blur-xl shadow-[0_8px_32px_rgba(0,0,0,0.4)] transition-transform duration-[700ms] hover:-translate-y-2 hover:shadow-[0_20px_60px_rgba(212,175,55,0.1)] group/card w-full lg:max-w-[520px] lg:ml-auto mt-16 lg:mt-0">
-            
-            {/* Gold Accent Line */}
-            <div className="absolute top-0 left-12 right-12 h-[1px] bg-gradient-to-r from-transparent via-[#d4af37]/30 to-transparent" />
-            
-            <h3 className="text-xl md:text-2xl font-black text-white tracking-widest text-center mb-12">
-              예약 전 체크해보세요
-            </h3>
-
-            <div className="grid gap-6">
-              {[
-                { title: "예약 가능 시간", desc: "평일 및 주말\n실시간 상담 가능" },
-                { title: "방문 인원", desc: "혼자 또는 단체 모두 가능" },
-                { title: "맞춤 공간", desc: "분위기에 맞는 룸 안내" },
-                { title: "예약 문의", desc: "전화 및 카카오톡 상담 가능" }
-              ].map((item) => (
-                <div 
-                  key={item.title} 
-                  className="flex flex-col md:flex-row md:items-center justify-between p-6 rounded-2xl bg-black/20 border border-white/[0.03] transition-all duration-[400ms] hover:border-[#d4af37]/40 hover:bg-black/40"
-                >
-                  <div className="text-[#d4af37] font-medium tracking-widest text-sm mb-2 md:mb-0">
-                    {item.title}
-                  </div>
-                  <div className="text-white/60 text-xs md:text-sm font-light tracking-wide whitespace-pre-line text-left md:text-right">
-                    {item.desc}
-                  </div>
+          {/* 우측 Premium Grid 2x2 */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 lg:gap-6 mt-12 lg:mt-0 w-full">
+            {[
+              { num: "01", eng: "PRIVATE", title: "프라이빗 공간" },
+              { num: "02", eng: "SERVICE", title: "맞춤 서비스" },
+              { num: "03", eng: "VIP ROOM", title: "고급 시설" },
+              { num: "04", eng: "MANAGER", title: "유진실장 직접 응대" }
+            ].map((card) => (
+              <div 
+                key={card.num}
+                className="group relative p-8 md:p-10 rounded-[28px] border border-white/[0.05] bg-white/[0.01] backdrop-blur-xl shadow-[0_8px_32px_rgba(0,0,0,0.2)] transition-all duration-500 hover:-translate-y-2 hover:bg-white/[0.03] hover:border-[#d4af37]/40 hover:shadow-[0_20px_60px_rgba(212,175,55,0.15)] overflow-hidden flex flex-col justify-between min-h-[220px]"
+              >
+                {/* Gold top accent on hover */}
+                <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[#d4af37]/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                
+                <div className="text-[#d4af37]/20 font-black text-5xl md:text-6xl italic mb-4 transition-colors duration-500 group-hover:text-[#d4af37]/60">
+                  {card.num}
                 </div>
-              ))}
-            </div>
-
+                
+                <div>
+                  <div className="text-[10px] uppercase tracking-[0.3em] text-[#d4af37] mb-2 opacity-80 group-hover:opacity-100 transition-opacity">
+                    {card.eng}
+                  </div>
+                  <h3 className="text-xl md:text-2xl font-black text-white tracking-tight">
+                    {card.title}
+                  </h3>
+                </div>
+              </div>
+            ))}
           </div>
 
         </div>
