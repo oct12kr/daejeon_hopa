@@ -1,0 +1,32 @@
+{
+  "name": "daejeon-seven-nights-strawberry",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint . --max-warnings=0"
+  },
+  "dependencies": {
+    "next": "15.5.15",
+    "react": "19.1.2",
+    "react-dom": "19.1.2"
+  },
+  "devDependencies": {
+    "@eslint/eslintrc": "3.3.1",
+    "@types/node": "20.19.17",
+    "@types/react": "19.1.13",
+    "@types/react-dom": "19.1.9",
+    "autoprefixer": "10.4.21",
+    "eslint": "9.36.0",
+    "eslint-config-next": "15.5.15",
+    "postcss": "8.5.14",
+    "tailwindcss": "3.4.17",
+    "typescript": "5.9.2",
+    "vercel": "^54.2.0"
+  },
+  "overrides": {
+    "postcss": "8.5.14"
+  }
+}

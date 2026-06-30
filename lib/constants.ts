@@ -1,0 +1,12 @@
+export const businessName = "대전톰바";
+export const area = "대전광역시 유성구";
+export const detailAddress = "봉명동 445-13";
+export const phoneDisplay = "010-9599-6174";
+export const phoneHref = "tel:01095996174";
+export const managerName = "유진실장";
+export const kakaoOpenChatHref = "https://open.kakao.com/o/strawberry7";
+export const siteUrl = "https://hopa.kr";
+export const fullAddress = `${area} ${detailAddress}`;
+const mapQuery = encodeURIComponent(fullAddress);
+export const mapEmbedSrc = `https://www.google.com/maps?q=${mapQuery}&output=embed`;
+export const mapDirectionsHref = `https://www.google.com/maps/dir/?api=1&destination=${mapQuery}`;

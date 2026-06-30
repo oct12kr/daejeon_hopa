@@ -1,0 +1,94 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+  background: #08080a;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background:
+    radial-gradient(circle at top left, rgba(235, 79, 105, 0.14), transparent 36rem),
+    linear-gradient(180deg, #08080a 0%, #111015 48%, #08080a 100%);
+  color: #fffaf7;
+}
+
+a {
+  text-decoration: none;
+}
+
+::selection {
+  background: #eb4f69;
+  color: #ffffff;
+}
+
+@layer components {
+  .wp-content {
+    color: rgba(255, 250, 247, 0.78);
+    font-size: 1.0625rem;
+    line-height: 1.9;
+  }
+
+  .wp-content > * + * {
+    margin-top: 1.35rem;
+  }
+
+  .wp-content h2,
+  .wp-content h3,
+  .wp-content h4 {
+    color: #fffaf7;
+    font-weight: 900;
+    line-height: 1.25;
+  }
+
+  .wp-content h2 {
+    font-size: clamp(1.85rem, 4vw, 2.75rem);
+    margin-top: 2.5rem;
+  }
+
+  .wp-content h3 {
+    font-size: 1.55rem;
+    margin-top: 2rem;
+  }
+
+  .wp-content a {
+    color: #ff5f7a;
+    font-weight: 800;
+  }
+
+  .wp-content a:hover {
+    color: #f7d680;
+  }
+
+  .wp-content ul,
+  .wp-content ol {
+    padding-left: 1.35rem;
+  }
+
+  .wp-content li + li {
+    margin-top: 0.55rem;
+  }
+
+  .wp-content blockquote {
+    border-left: 4px solid #ff5f7a;
+    color: rgba(255, 250, 247, 0.86);
+    padding-left: 1rem;
+  }
+
+  .wp-content img {
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 0.5rem;
+    height: auto;
+    max-width: 100%;
+  }
+}
