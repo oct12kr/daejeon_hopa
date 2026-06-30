@@ -592,10 +592,11 @@ export default function Home() {
               Final Step
             </p>
             
-            <h2 className="mt-6 text-4xl md:text-5xl lg:text-6xl font-black text-white tracking-tighter leading-[1.2]">
+            <h2 className="mt-6 text-4xl md:text-5xl lg:text-6xl font-black text-white tracking-tighter leading-[1.2] break-keep">
               당신에게 맞는
               <br />
-              최고의 시간을 준비합니다.
+              최고의 시간을
+              <br className="md:hidden" />준비합니다.
             </h2>
             
             <p className="mt-8 text-sm md:text-base text-white/60 font-light tracking-wide leading-loose">
