@@ -197,13 +197,16 @@ export default function Home() {
           {/* Gold Divider */}
           <div className="w-[1px] h-12 bg-gradient-to-b from-[#d4af37]/0 via-[#d4af37]/60 to-[#d4af37]/0 my-10" />
 
-          {/* Premium CTA Button */}
+          {/* Premium CTA Button & Phone */}
           <a 
             href={phoneHref}
-            className="group relative inline-flex items-center justify-center px-10 py-4 overflow-hidden rounded-full bg-white/5 border border-[#d4af37]/30 backdrop-blur-md transition-all duration-[500ms] hover:bg-[#d4af37]/10 hover:border-[#d4af37] hover:shadow-[0_0_40px_rgba(212,175,55,0.2)]"
+            className="group relative inline-flex flex-col items-center justify-center px-12 py-5 overflow-hidden rounded-full bg-white/5 border border-[#d4af37]/40 backdrop-blur-md transition-all duration-[500ms] hover:bg-[#d4af37]/10 hover:border-[#d4af37] hover:shadow-[0_0_40px_rgba(212,175,55,0.25)]"
           >
-            <span className="relative text-sm font-medium tracking-[0.2em] text-[#d4af37] group-hover:text-white transition-colors duration-[500ms]">
-              예약문의
+            <span className="relative text-xs font-semibold tracking-[0.3em] text-[#d4af37]/80 group-hover:text-white/80 transition-colors duration-[500ms] mb-2">
+              유진실장 다이렉트 예약
+            </span>
+            <span className="relative text-3xl md:text-4xl font-black tracking-wider text-[#d4af37] group-hover:text-white transition-colors duration-[500ms]">
+              010.9599.6174
             </span>
           </a>
 
@@ -632,10 +635,13 @@ export default function Home() {
 
             <a 
               href={phoneHref}
-              className="mt-14 group relative inline-flex items-center justify-center px-10 py-4 overflow-hidden rounded-full bg-[#d4af37]/10 border border-[#d4af37]/50 backdrop-blur-md transition-all duration-[500ms] hover:bg-[#d4af37]/20 hover:border-[#d4af37] hover:shadow-[0_0_40px_rgba(212,175,55,0.25)] hover:-translate-y-1"
+              className="mt-14 group relative inline-flex flex-col items-center justify-center px-12 py-5 overflow-hidden rounded-full bg-[#d4af37]/10 border border-[#d4af37]/50 backdrop-blur-md transition-all duration-[500ms] hover:bg-[#d4af37]/20 hover:border-[#d4af37] hover:shadow-[0_0_40px_rgba(212,175,55,0.3)] hover:-translate-y-1"
             >
-              <span className="relative text-sm font-medium tracking-[0.15em] text-[#d4af37] group-hover:text-white transition-colors duration-[500ms]">
-                유진실장 예약문의
+              <span className="relative text-xs font-semibold tracking-[0.3em] text-[#d4af37]/80 group-hover:text-white/80 transition-colors duration-[500ms] mb-2">
+                유진실장 다이렉트 예약
+              </span>
+              <span className="relative text-3xl md:text-4xl font-black tracking-wider text-[#d4af37] group-hover:text-white transition-colors duration-[500ms]">
+                010.9599.6174
               </span>
             </a>
           </div>
