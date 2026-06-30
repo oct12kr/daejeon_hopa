@@ -96,9 +96,16 @@ function normalizeRestPost(post: WpRestPost): BlogPost {
 
 export async function getBlogPosts(first = 12): Promise<BlogPostSummary[]> {
   try {
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 10000);
+    
     const res = await fetch(`${WP_REST_URL}/posts?_embed=1&per_page=${first}`, {
-      cache: 'no-store'
+      cache: 'no-store',
+      signal: controller.signal
     });
+    
+    clearTimeout(timeoutId);
+    
     if (!res.ok) return [];
     const posts = await res.json();
     return posts.map(normalizeRestPost).map((post: BlogPost): BlogPostSummary => {
@@ -139,9 +146,16 @@ export async function getBlogPostsByCategory(
   }
 
   try {
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 10000);
+
     const res = await fetch(url, {
-      cache: 'no-store'
+      cache: 'no-store',
+      signal: controller.signal
     });
+    
+    clearTimeout(timeoutId);
+
     if (!res.ok) {
       console.error(`WP REST API Error: ${res.status}`);
       return [];
@@ -170,9 +184,16 @@ export async function getBlogPostsByCategory(
 
 export async function getBlogPostBySlug(slug: string): Promise<BlogPost | null> {
   try {
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 10000);
+
     const res = await fetch(`${WP_REST_URL}/posts?_embed=1&slug=${slug}`, {
-      cache: 'no-store'
+      cache: 'no-store',
+      signal: controller.signal
     });
+    
+    clearTimeout(timeoutId);
+
     if (!res.ok) return null;
     const posts = await res.json();
     if (posts && posts.length > 0) {
