@@ -583,80 +583,76 @@ export default function Home() {
         </div>
       </section>
 
-      <section id="contact" className="relative bg-[#050507] py-32 overflow-hidden">
+      <section id="contact" className="relative bg-[#050507] py-40 overflow-hidden flex items-center justify-center text-center">
         {/* Subtle background glow */}
-        <div className="absolute left-0 bottom-0 w-[800px] h-[800px] bg-[#d4af37] opacity-[0.02] blur-[120px] rounded-full pointer-events-none translate-y-1/2 -translate-x-1/4" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[#d4af37] opacity-[0.03] blur-[150px] rounded-full pointer-events-none" />
 
-        <div className="relative mx-auto w-full max-w-7xl px-5 grid lg:grid-cols-[0.4fr_0.6fr] gap-16 lg:gap-20 items-center z-10">
+        <div className="relative mx-auto w-full max-w-4xl px-5 z-10 flex flex-col items-center">
           
-          {/* 좌측 */}
-          <div className="flex flex-col items-start">
-            <p className="text-[10px] md:text-xs font-semibold uppercase tracking-[0.4em] text-[#d4af37]">
-              Why TOMBA
-            </p>
-            
-            <h2 className="mt-6 text-4xl md:text-5xl lg:text-6xl font-black text-white tracking-tighter leading-[1.2] break-keep">
-              왜 많은 고객이
-              <br />
-              대전 톰바를 선택할까요?
-            </h2>
-            
-            <p className="mt-8 text-sm md:text-base text-white/60 font-light tracking-wide leading-loose">
-              편안한 공간,
-              <br />
-              품격 있는 서비스,
-              <br />
-              그리고 프라이빗한 분위기.
-              <br /><br />
-              유진실장이
-              <br />
-              처음부터 끝까지
-              <br />
-              직접 관리합니다.
-            </p>
+          <h2 className="text-5xl md:text-7xl lg:text-[90px] font-black text-white tracking-tighter leading-[1.1] break-keep">
+            마지막 선택은
+            <br />
+            유진실장이
+            <br />
+            완성합니다.
+          </h2>
+          
+          <p className="mt-12 text-base md:text-xl text-white/70 font-light tracking-wide leading-loose">
+            오늘의 모임,
+            <br />
+            소중한 만남,
+            <br />
+            특별한 하루까지
+            <br /><br />
+            방문 목적에 맞춰
+            <br />
+            최적의 공간을 준비해드립니다.
+          </p>
 
+          <div className="w-[1px] h-16 bg-gradient-to-b from-[#d4af37]/60 to-transparent my-12" />
+
+          {/* Premium Check List */}
+          <ul className="flex flex-col sm:flex-row flex-wrap justify-center gap-6 sm:gap-10 text-sm md:text-base text-[#d4af37]/90 font-light tracking-wide mb-16">
+            {[
+              "실시간 예약",
+              "1:1 맞춤 안내",
+              "프라이빗 VIP룸",
+              "유진실장 직접 관리"
+            ].map((item) => (
+              <li key={item} className="flex items-center gap-3">
+                <span className="text-[#d4af37] text-xs">✔</span>
+                {item}
+              </li>
+            ))}
+          </ul>
+
+          {/* Buttons */}
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 w-full sm:w-auto">
             <a 
               href={phoneHref}
-              className="mt-14 group relative inline-flex flex-col items-center justify-center px-12 py-5 overflow-hidden rounded-full bg-[#d4af37]/10 border border-[#d4af37]/50 backdrop-blur-md transition-all duration-[500ms] hover:bg-[#d4af37]/20 hover:border-[#d4af37] hover:shadow-[0_0_40px_rgba(212,175,55,0.3)] hover:-translate-y-1"
+              className="group relative inline-flex flex-col items-center justify-center px-10 py-5 overflow-hidden rounded-2xl bg-[#d4af37]/10 border border-[#d4af37]/50 backdrop-blur-md transition-all duration-[500ms] hover:bg-[#d4af37]/20 hover:border-[#d4af37] hover:shadow-[0_0_40px_rgba(212,175,55,0.3)] hover:-translate-y-1 w-full sm:w-auto min-w-[280px]"
             >
               <span className="relative text-xs font-semibold tracking-[0.3em] text-[#d4af37]/80 group-hover:text-white/80 transition-colors duration-[500ms] mb-2">
-                유진실장 예약문의
+                유진실장 다이렉트 예약
               </span>
-              <span className="relative text-3xl md:text-4xl font-black tracking-wider text-[#d4af37] group-hover:text-white transition-colors duration-[500ms]">
+              <span className="relative text-2xl md:text-3xl font-black tracking-wider text-[#d4af37] group-hover:text-white transition-colors duration-[500ms]">
                 010.9599.6174
               </span>
             </a>
-          </div>
 
-          {/* 우측 Premium Grid 2x2 */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 lg:gap-6 mt-12 lg:mt-0 w-full">
-            {[
-              { num: "01", eng: "PRIVATE", title: "프라이빗 공간" },
-              { num: "02", eng: "SERVICE", title: "맞춤 서비스" },
-              { num: "03", eng: "VIP ROOM", title: "고급 시설" },
-              { num: "04", eng: "MANAGER", title: "유진실장 직접 응대" }
-            ].map((card) => (
-              <div 
-                key={card.num}
-                className="group relative p-8 md:p-10 rounded-[28px] border border-white/[0.05] bg-white/[0.01] backdrop-blur-xl shadow-[0_8px_32px_rgba(0,0,0,0.2)] transition-all duration-500 hover:-translate-y-2 hover:bg-white/[0.03] hover:border-[#d4af37]/40 hover:shadow-[0_20px_60px_rgba(212,175,55,0.15)] overflow-hidden flex flex-col justify-between min-h-[220px]"
-              >
-                {/* Gold top accent on hover */}
-                <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[#d4af37]/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                
-                <div className="text-[#d4af37]/20 font-black text-5xl md:text-6xl italic mb-4 transition-colors duration-500 group-hover:text-[#d4af37]/60">
-                  {card.num}
-                </div>
-                
-                <div>
-                  <div className="text-[10px] uppercase tracking-[0.3em] text-[#d4af37] mb-2 opacity-80 group-hover:opacity-100 transition-opacity">
-                    {card.eng}
-                  </div>
-                  <h3 className="text-xl md:text-2xl font-black text-white tracking-tight">
-                    {card.title}
-                  </h3>
-                </div>
-              </div>
-            ))}
+            <a 
+              href={kakaoOpenChatHref}
+              target="_blank"
+              rel="noreferrer"
+              className="group relative inline-flex flex-col items-center justify-center px-10 py-5 overflow-hidden rounded-2xl bg-white/5 border border-white/10 backdrop-blur-md transition-all duration-[500ms] hover:bg-white/10 hover:border-white/30 hover:shadow-[0_0_40px_rgba(255,255,255,0.1)] hover:-translate-y-1 w-full sm:w-auto min-w-[280px]"
+            >
+              <span className="relative text-xs font-semibold tracking-[0.3em] text-white/50 group-hover:text-white/80 transition-colors duration-[500ms] mb-2">
+                1:1 실시간 상담
+              </span>
+              <span className="relative text-2xl md:text-3xl font-black tracking-wider text-white/90 group-hover:text-white transition-colors duration-[500ms]">
+                카카오톡 예약
+              </span>
+            </a>
           </div>
 
         </div>
