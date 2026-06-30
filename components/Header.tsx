@@ -94,7 +94,7 @@ export default function Header() {
             </svg>
             {/* 큰 T 자 */}
             <span 
-              className="text-4xl font-serif text-transparent bg-clip-text bg-gradient-to-b from-[#fdfbfb] via-[#d4af37] to-[#b38b22]"
+              className="text-4xl font-black tracking-tighter text-transparent bg-clip-text bg-gradient-to-b from-[#fdfbfb] via-[#d4af37] to-[#b38b22]"
               style={{ filter: "drop-shadow(0px 2px 4px rgba(0,0,0,0.8))" }}
             >
               T
@@ -103,7 +103,7 @@ export default function Header() {
           {/* 우측 텍스트 */}
           <div className="flex flex-col justify-center">
             <span 
-              className="text-2xl md:text-3xl font-serif tracking-[0.25em] mr-[-0.25em] text-transparent bg-clip-text bg-gradient-to-b from-[#fdfbfb] via-[#d4af37] to-[#b38b22] leading-none block text-center"
+              className="text-2xl md:text-3xl font-black tracking-[0.25em] mr-[-0.25em] text-transparent bg-clip-text bg-gradient-to-b from-[#fdfbfb] via-[#d4af37] to-[#b38b22] leading-none block text-center"
               style={{ filter: "drop-shadow(0px 2px 4px rgba(0,0,0,0.8))" }}
             >
               TOMBA

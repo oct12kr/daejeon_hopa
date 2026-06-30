@@ -148,81 +148,78 @@ export default function Home() {
       <section
         id="hero"
         aria-labelledby="hero-title"
-        className="relative isolate min-h-screen pt-20 border-b border-white/10"
+        className="relative isolate min-h-screen pt-20 border-b border-white/5 flex items-center justify-center"
       >
         <Image
           src="/images/tomba (1).png"
-          alt=""
+          alt="대전 톰바 메인"
           fill
           priority
           sizes="100vw"
           className="object-cover object-center opacity-70"
         />
-        {/* 좌→우 어둡게: 텍스트 가독성 확보 (기존보다 밝게 조절) */}
-        <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(8,8,10,0.8)_0%,rgba(8,8,10,0.6)_40%,rgba(8,8,10,0.2)_70%,rgba(8,8,10,0.0)_100%)]" />
-        {/* 하→상 어둡게: 모바일 보강 */}
-        <div className="absolute inset-0 bg-gradient-to-t from-[#08080a] via-[#08080a]/40 to-transparent md:hidden" />
+        {/* 전체적으로 고급스럽게 어둡게 눌러주는 오버레이 */}
+        <div className="absolute inset-0 bg-black/40" />
+        {/* 중앙으로 시선을 모으는 비네팅 효과 (Apple 스타일) */}
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,rgba(5,5,7,0.85)_100%)]" />
 
-        {/* 우상단 TOMBA DAEJEON HOST BAR 엠블럼 (PC만) */}
-        <div className="absolute right-12 top-12 hidden flex-col items-center gap-2 text-center lg:flex p-8 border border-[#f7d680]/30 shadow-[0_0_30px_rgba(247,214,128,0.15)] bg-black/40 backdrop-blur-sm">
-          <span className="text-7xl font-black text-[#f7d680]/90 drop-shadow-[0_2px_12px_rgba(247,214,128,0.3)]">T</span>
-          <span className="text-sm font-bold uppercase tracking-[0.25em] text-[#f7d680]/80 mt-2">Daejeon</span>
-          <span className="text-xs font-bold uppercase tracking-[0.25em] text-[#f7d680]/60">Host Bar</span>
-        </div>
+        <div className="relative z-10 mx-auto max-w-5xl px-5 text-center flex flex-col items-center">
+          
+          {/* 상단 작은 Gold Typography */}
+          <p className="text-[10px] md:text-xs font-semibold uppercase tracking-[0.4em] text-[#d4af37] mb-6">
+            Daejeon Premium Host Bar
+          </p>
+          
+          {/* 메인 타이틀 */}
+          <h1
+            id="hero-title"
+            className="text-6xl md:text-[80px] lg:text-[90px] font-black text-white tracking-tighter leading-[1.1] drop-shadow-2xl"
+          >
+            대전 톰바
+          </h1>
+          
+          {/* 서브 타이틀 (Gold) */}
+          <p className="mt-8 text-xl md:text-3xl font-light text-[#d4af37] tracking-widest leading-relaxed">
+            당신을 위한
+            <br />
+            프라이빗 프리미엄 공간
+          </p>
 
-        <div className="relative mx-auto flex min-h-[calc(100vh-68px)] max-w-7xl items-center px-5 py-16">
-          {/* 메인 카피 */}
-          <div>
-            <div className="flex items-center gap-3">
-              <p className="text-sm font-bold uppercase tracking-[0.18em] text-[#f7d680]/80">
-                Daejeon Tomba Host Bar
-              </p>
-              <span className="hidden h-px w-24 bg-[#f7d680]/40 sm:block" />
-            </div>
-            <h1
-              id="hero-title"
-              className="mt-6 text-5xl font-black leading-[1.2] tracking-tight md:text-6xl"
-            >
-              대전 <span className="text-[#f7d680]">톰바</span>
-              <br />
-              <span className="text-4xl md:text-[3.2rem] mt-2 block">당신만을 위한 특별한 밤</span>
-            </h1>
-            <p className="mt-8 max-w-lg text-base leading-7 text-[#f7d680]/80 md:text-lg">
-              프라이빗한 공간, 완벽한 서비스, 그리고 잊지 못할 시간
-              <br />
-              대전톰바에서 최고의 순간을 경험하세요.
-            </p>
+          {/* 설명 */}
+          <p className="mt-6 text-sm md:text-base text-white/60 font-light tracking-wide leading-loose">
+            프라이빗한 분위기,
+            <br />
+            세련된 공간,
+            <br />
+            그리고 특별한 순간을 경험하세요.
+          </p>
 
-            {/* 3개 피처 배지 */}
-            <div className="mt-8 flex flex-wrap gap-3">
-              {[
-                { icon: "👤", text: "유진실장 직접 관리" },
-                { icon: "👑", text: "체계적인 시스템" },
-                { icon: "💎", text: "프라이빗 VIP 룸" }
-              ].map((badge) => (
-                <span
-                  key={badge.text}
-                  className="inline-flex items-center gap-2 rounded-md border border-[#f7d680]/30 bg-black/40 px-4 py-2.5 text-sm font-bold text-white backdrop-blur-md"
-                >
-                  <span className="text-[#f7d680]">{badge.icon}</span>
-                  {badge.text}
-                </span>
-              ))}
-            </div>
+          {/* Gold Divider */}
+          <div className="w-[1px] h-12 bg-gradient-to-b from-[#d4af37]/0 via-[#d4af37]/60 to-[#d4af37]/0 my-10" />
 
-            {/* 전화번호 박스 */}
-            <div className="mt-10 inline-flex w-full items-center justify-center gap-5 rounded-lg border border-[#f7d680]/40 bg-black/40 px-6 py-5 backdrop-blur-md sm:w-auto sm:justify-start sm:px-10 sm:py-6">
-              <a href={phoneHref} className="flex items-center gap-5 group w-full justify-center sm:justify-start">
-                <span className="flex h-14 w-14 items-center justify-center text-[#f7d680] transition group-hover:scale-110 duration-300">
-                  <PhoneIcon className="h-10 w-10" />
-                </span>
-                <div className="text-center sm:text-left">
-                  <p className="text-3xl font-black text-[#f7d680] sm:text-4xl">{phoneDisplay}</p>
-                  <p className="mt-1 text-sm font-semibold text-[#f7d680]/70">유진실장 전화 예약</p>
-                </div>
-              </a>
-            </div>
+          {/* Premium CTA Button */}
+          <a 
+            href={phoneHref}
+            className="group relative inline-flex items-center justify-center px-10 py-4 overflow-hidden rounded-full bg-white/5 border border-[#d4af37]/30 backdrop-blur-md transition-all duration-[500ms] hover:bg-[#d4af37]/10 hover:border-[#d4af37] hover:shadow-[0_0_40px_rgba(212,175,55,0.2)]"
+          >
+            <span className="relative text-sm font-medium tracking-[0.2em] text-[#d4af37] group-hover:text-white transition-colors duration-[500ms]">
+              예약문의
+            </span>
+          </a>
+
+          {/* 하단 중앙 3 Premium Badges */}
+          <div className="mt-20 flex flex-col sm:flex-row items-center justify-center gap-6 sm:gap-12 opacity-80">
+            {[
+              "Premium Room",
+              "Luxury Service",
+              "Private Lounge"
+            ].map((badge) => (
+              <span key={badge} className="text-[10px] md:text-xs font-light uppercase tracking-[0.3em] text-white/70">
+                {badge}
+              </span>
+            ))}
           </div>
+
         </div>
       </section>
 
@@ -240,7 +237,7 @@ export default function Home() {
                   Premium Process
                 </span>
               </div>
-              <h2 className="text-4xl md:text-5xl lg:text-6xl font-serif text-white leading-[1.15] tracking-tight">
+              <h2 className="text-4xl md:text-5xl lg:text-6xl font-black text-white leading-[1.15] tracking-tighter">
                 <span className="text-transparent bg-clip-text bg-gradient-to-b from-[#fdfbfb] to-[#a0842a]">Perfect</span><br />
                 Experience
               </h2>
@@ -304,7 +301,7 @@ export default function Home() {
                     <span className="text-[#d4af37] opacity-80 group-hover:opacity-100 group-hover:scale-110 transition-all duration-500">
                       {card.icon}
                     </span>
-                    <span className="text-5xl font-serif italic text-white/[0.03] group-hover:text-[#d4af37]/10 transition-colors duration-500">
+                    <span className="text-5xl font-black italic text-white/[0.03] group-hover:text-[#d4af37]/10 transition-colors duration-500">
                       {card.step}
                     </span>
                   </div>
@@ -331,33 +328,60 @@ export default function Home() {
 
       <section
         id="room"
-        className="relative isolate border-b border-white/10 py-24 min-h-[600px] flex items-center"
+        className="relative isolate border-b border-white/5 py-24 min-h-[600px] flex items-center bg-[#050507] overflow-hidden"
       >
         <Image
           src="/images/tomba (3).png"
           alt="대전호빠 대전톰바 VIP 룸"
           fill
           sizes="100vw"
-          className="object-cover opacity-60"
+          className="object-cover opacity-50"
         />
-        <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(8,8,10,0.85)_0%,rgba(8,8,10,0.6)_50%,rgba(8,8,10,0.1)_100%)]" />
-        <div className="relative mx-auto w-full max-w-7xl px-5">
-          <div className="max-w-2xl">
-            <p className="text-sm font-bold uppercase tracking-[0.18em] text-[#f7d680]/80">
-              VIP Room Mood
+        {/* 전체적으로 텍스트 가독성을 높여주는 고급스러운 오버레이 */}
+        <div className="absolute inset-0 bg-black/40" />
+
+        <div className="relative mx-auto w-full max-w-7xl px-5 grid lg:grid-cols-[0.3fr_0.7fr] gap-20 lg:gap-12 items-center">
+          
+          {/* 좌측 (30%) */}
+          <div className="flex flex-col items-start">
+            <p className="text-xs md:text-sm font-semibold uppercase tracking-[0.4em] text-[#d4af37]">
+              Premium Lounge
             </p>
-            <h2 className="mt-4 text-4xl font-black leading-[1.3] md:text-5xl lg:text-6xl break-keep">
-              최고의 시간을 위한 완벽한 공간,
+            
+            <div className="w-[1px] h-20 bg-gradient-to-b from-[#d4af37]/80 to-transparent my-8" />
+            
+            <p className="text-base md:text-lg text-white/80 font-light tracking-wide leading-loose">
+              대전 톰바는
               <br />
-              <span className="text-[#f7d680]">대전호빠 대전톰바</span>
-            </h2>
-            <p className="mt-6 text-lg leading-8 text-white/80 break-keep">
-              생일파티, 비즈니스 모임, 프라이빗한 만남까지 방문 목적에 맞춘
-              최적의 VIP룸과 프리미엄 서비스를 제공합니다.
-              <br className="hidden sm:block" />
-              대전 최고 수준의 시설에서 잊지 못할 특별한 밤을 경험하세요.
+              프라이빗한 공간과
+              <br />
+              품격 있는 서비스를 제공합니다.
             </p>
           </div>
+
+          {/* 우측 (70%) */}
+          <div className="flex flex-col lg:items-end lg:text-right mt-10 lg:mt-0">
+            <h2 className="text-[70px] md:text-[100px] lg:text-[130px] font-black text-white/95 tracking-tighter leading-none drop-shadow-2xl">
+              VIP ROOM
+            </h2>
+            
+            <h3 className="mt-4 md:mt-6 text-3xl md:text-5xl font-black text-white tracking-tighter leading-[1.3]">
+              완벽한 공간,
+              <br />
+              특별한 경험
+            </h3>
+            
+            <div className="w-16 lg:w-32 h-[1px] bg-gradient-to-r from-[#d4af37]/60 to-transparent lg:from-transparent lg:via-[#d4af37]/60 lg:to-[#d4af37]/60 my-10" />
+            
+            <p className="text-base md:text-lg text-white/80 font-light tracking-wide leading-loose">
+              프라이빗한 룸과
+              <br />
+              세련된 분위기에서
+              <br />
+              품격 있는 시간을 경험하세요.
+            </p>
+          </div>
+
         </div>
       </section>
 
@@ -367,7 +391,7 @@ export default function Home() {
             <p className="text-[11px] font-semibold uppercase tracking-[0.3em] text-[#d4af37] mb-4">
               Premium Gallery
             </p>
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-serif text-white leading-[1.2] tracking-tight">
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-black text-white leading-[1.2] tracking-tighter">
               High-End Space
             </h2>
             <p className="mt-6 text-base text-white/50 font-light max-w-2xl mx-auto break-keep">
@@ -402,7 +426,7 @@ export default function Home() {
                 
                 {/* Frost Glass Caption */}
                 <div className="absolute bottom-0 left-0 right-0 px-6 py-5 bg-black/40 backdrop-blur-md border-t border-white/10 transition-all duration-[400ms]">
-                  <h3 className="text-white font-serif tracking-widest text-sm lg:text-base">
+                  <h3 className="text-white font-black tracking-widest text-sm lg:text-base">
                     {item.title}
                   </h3>
                   <p className="text-[#d4af37]/80 text-[11px] lg:text-xs mt-1.5 font-light tracking-wide">
@@ -424,7 +448,7 @@ export default function Home() {
             <p className="text-[11px] font-semibold uppercase tracking-[0.3em] text-[#d4af37] mb-4">
               Visitor Guide
             </p>
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-serif text-white leading-[1.2] tracking-tight">
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-black text-white leading-[1.2] tracking-tighter">
               <span className="text-transparent bg-clip-text bg-gradient-to-b from-[#fdfbfb] to-[#a0842a]">처음 방문이라면</span><br />
               이것만 확인하세요.
             </h2>
@@ -556,48 +580,98 @@ export default function Home() {
         </div>
       </section>
 
-      <section id="contact" className="bg-[#08080a] py-24">
-        <div className="mx-auto grid max-w-7xl gap-12 px-5 lg:grid-cols-[1fr_1fr]">
-          <div className="flex flex-col justify-center">
-            <p className="text-sm font-bold uppercase tracking-[0.18em] text-[#f7d680]/80">
-              Reservation
+      <section id="contact" className="relative bg-[#050507] py-32 overflow-hidden">
+        {/* Subtle background glow */}
+        <div className="absolute left-0 bottom-0 w-[800px] h-[800px] bg-[#d4af37] opacity-[0.02] blur-[120px] rounded-full pointer-events-none translate-y-1/2 -translate-x-1/4" />
+
+        <div className="relative mx-auto w-full max-w-7xl px-5 grid lg:grid-cols-[0.4fr_0.6fr] gap-16 lg:gap-20 items-center z-10">
+          
+          {/* 좌측 */}
+          <div className="flex flex-col items-start">
+            <p className="text-[10px] md:text-xs font-semibold uppercase tracking-[0.4em] text-[#d4af37]">
+              Final Step
             </p>
-            <h2 className="mt-4 text-4xl font-black leading-[1.3] md:text-5xl break-keep">
-              유진실장 다이렉트
+            
+            <h2 className="mt-6 text-4xl md:text-5xl lg:text-6xl font-black text-white tracking-tighter leading-[1.2]">
+              당신에게 맞는
               <br />
-              <span className="text-[#f7d680]">VIP 예약 서비스</span>
+              최고의 시간을 준비합니다.
             </h2>
-            <p className="mt-6 text-lg leading-8 text-white/70 break-keep">
-              원하시는 날짜와 방문 인원, 선호하는 룸 분위기를 말씀해 주시면 상황에 맞는 최적의 공간을 세팅해 드립니다.
-              <br className="hidden sm:block" />
-              처음 오시는 분도, 오랜 단골 고객님도 한결같은 VVIP 프리미엄 케어로 모시겠습니다.
+            
+            <p className="mt-8 text-sm md:text-base text-white/60 font-light tracking-wide leading-loose">
+              처음 방문하시는 고객부터
+              <br />
+              오랜 단골 고객까지
+              <br /><br />
+              방문 목적과 분위기에 맞춰
+              <br />
+              유진실장이 직접
+              <br />
+              최적의 공간을 안내해드립니다.
             </p>
-            <div className="mt-10 flex flex-col gap-4 sm:flex-row">
-              <a
-                href={phoneHref}
-                className="inline-flex items-center justify-center rounded-xl bg-[#f7d680] px-8 py-4 text-lg font-black text-[#08080a] transition hover:bg-[#ffdf8a] hover:scale-105 shadow-[0_0_20px_rgba(247,214,128,0.2)]"
-              >
-                {phoneDisplay} 예약 문의
-              </a>
-            </div>
+
+            <div className="w-16 h-[1px] bg-gradient-to-r from-[#d4af37]/60 to-transparent my-10" />
+
+            {/* Premium Check List */}
+            <ul className="space-y-5 text-sm md:text-base text-white/80 font-light tracking-wide">
+              {[
+                "프라이빗 맞춤 안내",
+                "방문 목적별 공간 추천",
+                "실시간 예약 가능",
+                "친절한 1:1 응대"
+              ].map((item) => (
+                <li key={item} className="flex items-center gap-4">
+                  <span className="flex items-center justify-center w-5 h-5 rounded-full bg-[#d4af37]/10 text-[#d4af37] text-[10px]">
+                    ✔
+                  </span>
+                  {item}
+                </li>
+              ))}
+            </ul>
+
+            <a 
+              href={phoneHref}
+              className="mt-14 group relative inline-flex items-center justify-center px-10 py-4 overflow-hidden rounded-full bg-[#d4af37]/10 border border-[#d4af37]/50 backdrop-blur-md transition-all duration-[500ms] hover:bg-[#d4af37]/20 hover:border-[#d4af37] hover:shadow-[0_0_40px_rgba(212,175,55,0.25)] hover:-translate-y-1"
+            >
+              <span className="relative text-sm font-medium tracking-[0.15em] text-[#d4af37] group-hover:text-white transition-colors duration-[500ms]">
+                유진실장 예약문의
+              </span>
+            </a>
           </div>
-          <div className="rounded-xl border border-[#f7d680]/20 bg-[#111015] p-8 shadow-[0_4px_30px_rgba(0,0,0,0.5)]">
-            <h3 className="text-2xl font-black text-[#f7d680] mb-6">자주 묻는 질문</h3>
-            <div className="grid gap-4">
-              {faqs.map((faq) => (
-                <details
-                  key={faq.q}
-                  className="group rounded-lg border border-[#f7d680]/10 bg-black/40 p-5 transition hover:border-[#f7d680]/30"
+
+          {/* 우측 */}
+          <div className="relative p-8 md:p-12 rounded-[28px] border border-white/[0.05] bg-white/[0.02] backdrop-blur-xl shadow-[0_8px_32px_rgba(0,0,0,0.4)] transition-transform duration-[700ms] hover:-translate-y-2 hover:shadow-[0_20px_60px_rgba(212,175,55,0.1)] group/card">
+            
+            {/* Gold Accent Line */}
+            <div className="absolute top-0 left-12 right-12 h-[1px] bg-gradient-to-r from-transparent via-[#d4af37]/30 to-transparent" />
+            
+            <h3 className="text-xl md:text-2xl font-black text-white tracking-widest text-center mb-12">
+              예약 전 체크해보세요
+            </h3>
+
+            <div className="grid gap-6">
+              {[
+                { title: "예약 가능 시간", desc: "평일 및 주말\n실시간 상담 가능" },
+                { title: "방문 인원", desc: "혼자 또는 단체 모두 가능" },
+                { title: "맞춤 공간", desc: "분위기에 맞는 룸 안내" },
+                { title: "예약 문의", desc: "전화 및 카카오톡 상담 가능" }
+              ].map((item) => (
+                <div 
+                  key={item.title} 
+                  className="flex flex-col md:flex-row md:items-center justify-between p-6 rounded-2xl bg-black/20 border border-white/[0.03] transition-all duration-[400ms] hover:border-[#d4af37]/40 hover:bg-black/40"
                 >
-                  <summary className="flex cursor-pointer items-center justify-between font-bold text-white group-open:text-[#f7d680] list-none">
-                    {faq.q}
-                    <span className="text-[#f7d680]/50 transition-transform group-open:rotate-180">▼</span>
-                  </summary>
-                  <p className="mt-4 text-[14px] leading-relaxed text-white/70 break-keep">{faq.a}</p>
-                </details>
+                  <div className="text-[#d4af37] font-medium tracking-widest text-sm mb-2 md:mb-0">
+                    {item.title}
+                  </div>
+                  <div className="text-white/60 text-xs md:text-sm font-light tracking-wide whitespace-pre-line text-left md:text-right">
+                    {item.desc}
+                  </div>
+                </div>
               ))}
             </div>
+
           </div>
+
         </div>
       </section>
 
