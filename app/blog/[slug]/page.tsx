@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 import { notFound } from "next/navigation";
 import { getBlogPostBySlug } from "@/lib/wordpress";
 
@@ -85,7 +86,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     "@type": "BlogPosting",
     headline: post.title,
     description,
-    image: post.featuredImage?.sourceUrl || "https://daejeonhopa.com/images/seven%20(1).png",
+    image: post.featuredImage?.sourceUrl || "https://daejeonhopa.com/images/tomba%20(1).png",
     author: {
       "@type": "Person",
       name: post.author
@@ -95,7 +96,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
       name: "대전톰바",
       logo: {
         "@type": "ImageObject",
-        url: "https://daejeonhopa.com/images/seven%20(1).png"
+        url: "https://daejeonhopa.com/images/tomba%20(1).png"
       }
     },
     datePublished: post.date,
@@ -139,6 +140,18 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
       <article>
         <header className="border-b border-white/10 bg-white/[0.02] py-14 md:py-18">
           <div className="mx-auto max-w-4xl px-5">
+            {post.featuredImage?.sourceUrl && (
+              <div className="relative aspect-[2/1] w-full overflow-hidden rounded-2xl mb-10 border border-white/10">
+                <Image
+                  src={post.featuredImage.sourceUrl}
+                  alt={post.featuredImage.altText || post.title}
+                  fill
+                  priority
+                  className="object-cover"
+                  sizes="(max-width: 768px) 100vw, 896px"
+                />
+              </div>
+            )}
             <Link
               href="/blog"
               className="text-sm font-black text-[#ff5f7a] hover:text-[#f7d680]"

@@ -32,9 +32,22 @@ export interface WpRestPost {
   title?: { rendered?: string };
   excerpt?: { rendered?: string };
   content?: { rendered?: string };
+  featured_image_url?: string;
+  yoast_head_json?: {
+    og_image?: Array<{ url: string }>;
+  };
   _embedded?: {
     author?: Array<{ name?: string }>;
-    "wp:featuredmedia"?: Array<{ source_url?: string; alt_text?: string }>;
+    "wp:featuredmedia"?: Array<{
+      source_url?: string;
+      alt_text?: string;
+      media_details?: {
+        sizes?: {
+          medium_large?: { source_url?: string };
+          full?: { source_url?: string };
+        };
+      };
+    }>;
     "wp:term"?: Array<Array<{ taxonomy?: string; name?: string; slug?: string }>>;
   };
 }
@@ -55,14 +68,42 @@ function normalizeRestPost(post: WpRestPost): BlogPost {
     author = post._embedded.author[0].name;
   }
 
-  let featuredImage = null;
-  if (post._embedded?.['wp:featuredmedia']?.[0]) {
-    const media = post._embedded['wp:featuredmedia'][0];
-    featuredImage = {
-      sourceUrl: media.source_url || '',
-      altText: media.alt_text || title
-    };
+  let featuredImageSourceUrl = "";
+  let featuredImageAltText = title;
+
+  const embeddedMedia = post._embedded?.['wp:featuredmedia']?.[0];
+  if (embeddedMedia?.source_url) {
+    featuredImageSourceUrl = embeddedMedia.source_url;
+    if (embeddedMedia.alt_text) featuredImageAltText = embeddedMedia.alt_text;
+  } else if (embeddedMedia?.media_details?.sizes?.medium_large?.source_url) {
+    featuredImageSourceUrl = embeddedMedia.media_details.sizes.medium_large.source_url;
+  } else if (embeddedMedia?.media_details?.sizes?.full?.source_url) {
+    featuredImageSourceUrl = embeddedMedia.media_details.sizes.full.source_url;
+  } else if (post.featured_image_url) {
+    featuredImageSourceUrl = post.featured_image_url;
+  } else if (post.yoast_head_json?.og_image?.[0]?.url) {
+    featuredImageSourceUrl = post.yoast_head_json.og_image[0].url;
+  } else {
+    const match = post.content?.rendered?.match(/<img[^>]+src=["']([^"']+)["']/);
+    if (match?.[1]) {
+      featuredImageSourceUrl = match[1];
+    } else {
+      featuredImageSourceUrl = "/images/tomba (1).png"; // Fallback image
+    }
   }
+
+  // 절대경로 변환 (상대경로일 경우)
+  if (featuredImageSourceUrl && featuredImageSourceUrl.startsWith('/')) {
+    if (!featuredImageSourceUrl.startsWith('/images/')) {
+      const wpHost = WP_REST_URL.split('/wp-json')[0];
+      featuredImageSourceUrl = `${wpHost}${featuredImageSourceUrl}`;
+    }
+  }
+
+  const featuredImage = {
+    sourceUrl: featuredImageSourceUrl,
+    altText: featuredImageAltText
+  };
 
   const categories: {name: string, slug: string}[] = [];
   if (post._embedded?.['wp:term']) {
