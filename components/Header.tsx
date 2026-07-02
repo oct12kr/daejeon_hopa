@@ -128,10 +128,10 @@ export default function Header() {
         {/* 우측: 전화예약 버튼 + 모바일 햄버거 */}
         <div className="flex items-center gap-3">
           <a
-            href="tel:01059556174"
+            href="tel:01095996174"
             className="rounded-full bg-gradient-to-r from-[#94762c] to-[#b89436] px-5 py-2 text-[11px] font-light tracking-widest text-white shadow-[0_4px_12px_rgba(0,0,0,0.4)] hover:from-[#a88632] hover:to-[#cca43d] transition border border-white/20 flex items-center gap-1"
           >
-            예약문의 <span className="opacity-70">&rarr;</span>
+            010-9599-6174 <span className="opacity-70">&rarr;</span>
           </a>
 
           {/* 햄버거 버튼 (md 미만에서만 표시) */}
