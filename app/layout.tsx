@@ -13,7 +13,7 @@ export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
     default: defaultTitle,
-    template: "%s | 대전톰바"
+    template: "%s | 대전호빠"
   },
   description,
   keywords: [
@@ -29,12 +29,12 @@ export const metadata: Metadata = {
     "대전톰바 오시는길"
   ],
   alternates: {
-    canonical: siteUrl
+    canonical: "/"
   },
   openGraph: {
     type: "website",
     locale: "ko_KR",
-    url: siteUrl,
+    url: "/",
     siteName: "대전톰바",
     title: defaultTitle,
     description,

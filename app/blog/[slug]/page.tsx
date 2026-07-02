@@ -37,22 +37,33 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
 
   if (!post) {
     return {
-      title: "블로그 글 | 대전톰바 대전호빠"
+      title: "블로그 글 | 대전호빠"
     };
   }
 
+  const description = buildDescription(post.excerpt, post.title);
+
   return {
-    title: `${post.title} | 대전톰바 대전호빠`,
-    description: buildDescription(post.excerpt, post.title),
+    title: `${post.title} | 대전호빠`,
+    description,
     alternates: {
       canonical: `/blog/${post.slug}`
     },
     openGraph: {
       type: "article",
       title: post.title,
-      description: buildDescription(post.excerpt, post.title),
+      description,
+      url: `/blog/${post.slug}`,
+      siteName: "대전톰바",
       publishedTime: post.date ?? undefined,
-      modifiedTime: post.modified ?? undefined
+      modifiedTime: post.modified ?? undefined,
+      images: post.featuredImage ? [{ url: post.featuredImage.sourceUrl }] : []
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: post.title,
+      description,
+      images: post.featuredImage ? [post.featuredImage.sourceUrl] : []
     }
   };
 }
@@ -66,8 +77,65 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     notFound();
   }
 
+  const postUrl = `https://daejeonhopa.com/blog/${post.slug}`;
+  const description = buildDescription(post.excerpt, post.title);
+
+  const articleSchema = {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    headline: post.title,
+    description,
+    image: post.featuredImage?.sourceUrl || "https://daejeonhopa.com/images/seven%20(1).png",
+    author: {
+      "@type": "Person",
+      name: post.author
+    },
+    publisher: {
+      "@type": "Organization",
+      name: "대전톰바",
+      logo: {
+        "@type": "ImageObject",
+        url: "https://daejeonhopa.com/images/seven%20(1).png"
+      }
+    },
+    datePublished: post.date,
+    dateModified: post.modified || post.date,
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": postUrl
+    },
+    url: postUrl
+  };
+
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "홈",
+        item: "https://daejeonhopa.com/"
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "블로그",
+        item: "https://daejeonhopa.com/blog"
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: post.title,
+        item: postUrl
+      }
+    ]
+  };
+
   return (
     <main className="min-h-screen bg-transparent text-[#fffaf7]">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
       <article>
         <header className="border-b border-white/10 bg-white/[0.02] py-14 md:py-18">
           <div className="mx-auto max-w-4xl px-5">

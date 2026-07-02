@@ -86,6 +86,13 @@ const faqs = [
   }
 ];
 
+const websiteSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: "대전톰바",
+  url: siteUrl,
+};
+
 const localBusinessSchema = {
   "@context": "https://schema.org",
   "@type": "NightClub",
@@ -142,6 +149,7 @@ function JsonLd({ data }: { data: Record<string, unknown> }) {
 export default function Home() {
   return (
     <main className="min-h-screen overflow-hidden bg-transparent text-[#fffaf7]">
+      <JsonLd data={websiteSchema} />
       <JsonLd data={localBusinessSchema} />
       <JsonLd data={faqSchema} />
 

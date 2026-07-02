@@ -12,6 +12,39 @@ export const metadata: Metadata = {
     "대전톰바 대전호빠 예약 안내, 방문 팁, 분위기와 가격 상담 정보를 정리한 블로그입니다.",
   alternates: {
     canonical: "/blog"
+  },
+  openGraph: {
+    title: "블로그 | 대전톰바 대전호빠",
+    description: "대전톰바 대전호빠 예약 안내, 방문 팁, 분위기와 가격 상담 정보를 정리한 블로그입니다.",
+    url: "/blog",
+    type: "website",
+    siteName: "대전톰바"
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "블로그 | 대전톰바 대전호빠",
+    description: "대전톰바 대전호빠 예약 안내, 방문 팁, 분위기와 가격 상담 정보를 정리한 블로그입니다."
+  }
+};
+
+function JsonLd({ data }: { data: Record<string, unknown> }) {
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }}
+    />
+  );
+}
+
+const blogSchema = {
+  "@context": "https://schema.org",
+  "@type": "Blog",
+  "url": "https://daejeonhopa.com/blog",
+  "name": "블로그 | 대전톰바 대전호빠",
+  "description": "대전톰바 대전호빠 예약 안내, 방문 팁, 분위기와 가격 상담 정보를 정리한 블로그입니다.",
+  "publisher": {
+    "@type": "Organization",
+    "name": "대전톰바"
   }
 };
 
@@ -150,6 +183,7 @@ export default async function BlogPage() {
 
   return (
     <main className="min-h-screen bg-transparent text-[#fffaf7]">
+      <JsonLd data={blogSchema} />
       {/* 최상단 인트로 섹션 */}
       <section className="border-b border-white/10 bg-white/[0.02] py-16 md:py-20">
         <div className="mx-auto max-w-7xl px-5">
