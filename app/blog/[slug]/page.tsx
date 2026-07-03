@@ -78,7 +78,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     notFound();
   }
 
-  const postUrl = `https://daejeonhopa.com/blog/${post.slug}`;
+  const postUrl = `https://www.daejeonhopa.com/blog/${post.slug}`;
   const description = buildDescription(post.excerpt, post.title);
 
   const articleSchema = {
@@ -86,7 +86,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     "@type": "BlogPosting",
     headline: post.title,
     description,
-    image: post.featuredImage?.sourceUrl || "https://daejeonhopa.com/images/tomba%20(1).png",
+    image: post.featuredImage?.sourceUrl || "https://www.daejeonhopa.com/images/tomba%20(1).png",
     author: {
       "@type": "Person",
       name: post.author
@@ -96,7 +96,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
       name: "대전톰바",
       logo: {
         "@type": "ImageObject",
-        url: "https://daejeonhopa.com/images/tomba%20(1).png"
+        url: "https://www.daejeonhopa.com/images/tomba%20(1).png"
       }
     },
     datePublished: post.date,
@@ -116,13 +116,13 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         "@type": "ListItem",
         position: 1,
         name: "홈",
-        item: "https://daejeonhopa.com/"
+        item: "https://www.daejeonhopa.com/"
       },
       {
         "@type": "ListItem",
         position: 2,
         name: "블로그",
-        item: "https://daejeonhopa.com/blog"
+        item: "https://www.daejeonhopa.com/blog"
       },
       {
         "@type": "ListItem",

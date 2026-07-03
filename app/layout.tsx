@@ -4,7 +4,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import FloatingActionButtons from "@/components/FloatingActionButtons";
 
-const siteUrl = "https://daejeonhopa.com";
+const siteUrl = "https://www.daejeonhopa.com";
 const defaultTitle = "대전호빠 대전톰바 | 당신만을 위한 특별한 밤";
 const description =
   "대전호빠 대전톰바. 프라이빗한 공간, 완벽한 서비스. 베테랑 유진실장이 잊지 못할 최고의 순간을 만들어 드립니다. 지금 바로 예약하세요.";

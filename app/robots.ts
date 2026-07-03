@@ -6,6 +6,6 @@ export default function robots(): MetadataRoute.Robots {
       userAgent: '*',
       allow: '/',
     },
-    sitemap: 'https://daejeonhopa.com/sitemap.xml',
+    sitemap: 'https://www.daejeonhopa.com/sitemap.xml',
   }
 }

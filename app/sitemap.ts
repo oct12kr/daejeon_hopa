@@ -1,7 +1,7 @@
 import type { MetadataRoute } from "next";
 import { getBlogPostSlugs } from "@/lib/wordpress";
 
-const siteUrl = "https://daejeonhopa.com";
+const siteUrl = "https://www.daejeonhopa.com";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const blogPosts = await getBlogPostSlugs().catch(() => []);
