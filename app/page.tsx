@@ -99,7 +99,7 @@ const localBusinessSchema = {
   name: businessName,
   alternateName: ["대전톰바", "대전호빠", "유성구호빠", "대전라운지"],
   description:
-    "대전광역시 유성구 봉명동 445-13 대전톰바 대전호빠 예약 상담. 가격 안내, 방문 케어, 재방문 고객 관리, 시크릿 가이드 서비스.",
+    "대전시 유성구 봉명동 445-13번지 GS편의점 2층 톰바 대전호빠 예약 상담. 가격 안내, 방문 케어, 재방문 고객 관리, 시크릿 가이드 서비스.",
   url: siteUrl,
   image: [
     `${siteUrl}/images/seven%20(1).png`,
@@ -214,7 +214,7 @@ export default function Home() {
               유진실장 다이렉트 예약
             </span>
             <span className="relative text-3xl md:text-4xl font-black tracking-wider text-[#d4af37] group-hover:text-white transition-colors duration-[500ms]">
-              010.9599.6174
+              010.5955.6174
             </span>
           </a>
 
@@ -644,7 +644,7 @@ export default function Home() {
                 유진실장 다이렉트 예약
               </span>
               <span className="relative text-2xl md:text-3xl font-black tracking-wider text-[#d4af37] group-hover:text-white transition-colors duration-[500ms]">
-                010.9599.6174
+                010.5955.6174
               </span>
             </a>
 
