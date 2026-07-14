@@ -13,7 +13,7 @@ export default function FloatingActionButtons() {
       className="fixed bottom-6 right-4 z-[80] flex flex-col gap-3 md:bottom-10 md:right-8"
     >
       <a
-        href="tel:01059556174"
+        href={phoneHref}
         aria-label="전화 상담 010-5955-6174"
         title="전화 상담 010-5955-6174"
         className={`${floatingActionBaseClass} border-[#a78bfa]/50 bg-[#7c3aed] text-white hover:border-white/70 hover:bg-[#8b5cf6]`}
