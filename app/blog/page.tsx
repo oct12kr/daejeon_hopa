@@ -6,19 +6,15 @@ import { getBlogPostsByCategory } from "@/lib/wordpress";
 export const dynamic = 'force-dynamic';
 export const revalidate = 0;
 
-const BLOG_TITLE = "블로그 | 대전톰바 대전호빠 010-5955-6174";
-
 export const metadata: Metadata = {
-  title: {
-    absolute: BLOG_TITLE
-  },
+  title: "블로그 | 대전톰바 대전호빠",
   description:
     "대전톰바 대전호빠 예약 안내, 방문 팁, 분위기와 가격 상담 정보를 정리한 블로그입니다.",
   alternates: {
     canonical: "/blog"
   },
   openGraph: {
-    title: BLOG_TITLE,
+    title: "블로그 | 대전톰바 대전호빠",
     description: "대전톰바 대전호빠 예약 안내, 방문 팁, 분위기와 가격 상담 정보를 정리한 블로그입니다.",
     url: "/blog",
     type: "website",
@@ -26,7 +22,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: BLOG_TITLE,
+    title: "블로그 | 대전톰바 대전호빠",
     description: "대전톰바 대전호빠 예약 안내, 방문 팁, 분위기와 가격 상담 정보를 정리한 블로그입니다."
   }
 };
