@@ -1,3 +1,5 @@
+import { cache } from 'react';
+
 // 워드프레스 API URL (환경변수에서 읽어옴)
 const WP_REST_URL = process.env.NEXT_PUBLIC_WORDPRESS_API_URL || 'https://wordpress-1628102-6522287.cloudwaysapps.com/wp-json/wp/v2';
 
@@ -141,7 +143,7 @@ export async function getBlogPosts(first = 12): Promise<BlogPostSummary[]> {
     const timeoutId = setTimeout(() => controller.abort(), 10000);
     
     const res = await fetch(`${WP_REST_URL}/posts?_embed=1&per_page=${first}`, {
-      cache: 'no-store',
+      next: { revalidate: 300 },
       signal: controller.signal
     });
     
@@ -191,7 +193,7 @@ export async function getBlogPostsByCategory(
     const timeoutId = setTimeout(() => controller.abort(), 10000);
 
     const res = await fetch(url, {
-      cache: 'no-store',
+      next: { revalidate: 300 },
       signal: controller.signal
     });
     
@@ -223,16 +225,16 @@ export async function getBlogPostsByCategory(
   }
 }
 
-export async function getBlogPostBySlug(slug: string): Promise<BlogPost | null> {
+export const getBlogPostBySlug = cache(async (slug: string): Promise<BlogPost | null> => {
   try {
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), 10000);
 
     const res = await fetch(`${WP_REST_URL}/posts?_embed=1&slug=${slug}`, {
-      cache: 'no-store',
+      next: { revalidate: 300 },
       signal: controller.signal
     });
-    
+
     clearTimeout(timeoutId);
 
     if (!res.ok) return null;
@@ -245,7 +247,7 @@ export async function getBlogPostBySlug(slug: string): Promise<BlogPost | null> 
     console.error("getBlogPostBySlug Error:", e);
     return null;
   }
-}
+});
 
 export async function getBlogPostSlugs(first = 50) {
   const posts = await getBlogPosts(first);

@@ -3,8 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { getBlogPostsByCategory } from "@/lib/wordpress";
 
-export const dynamic = 'force-dynamic';
-export const revalidate = 0;
+export const revalidate = 300;
 
 export const metadata: Metadata = {
   title: "블로그 | 대전톰바 대전호빠",
