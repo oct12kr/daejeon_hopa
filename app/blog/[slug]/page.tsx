@@ -37,14 +37,14 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
 
   if (!post) {
     return {
-      title: "블로그 글 | 대전호빠"
+      title: "블로그 글"
     };
   }
 
   const description = buildDescription(post.excerpt, post.title);
 
   return {
-    title: `${post.title} | 대전호빠`,
+    title: post.title,
     description,
     alternates: {
       canonical: `/blog/${post.slug}`
@@ -85,7 +85,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     "@type": "BlogPosting",
     headline: post.title,
     description,
-    image: post.featuredImage?.sourceUrl || "https://www.daejeonhopa.com/images/tomba%20(1).png",
+    image: post.featuredImage?.sourceUrl || "https://www.daejeonhopa.com/images/tomba%20(1).webp",
     author: {
       "@type": "Person",
       name: post.author
@@ -95,7 +95,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
       name: "대전톰바",
       logo: {
         "@type": "ImageObject",
-        url: "https://www.daejeonhopa.com/images/tomba%20(1).png"
+        url: "https://www.daejeonhopa.com/images/tomba%20(1).webp"
       }
     },
     datePublished: post.date,
@@ -187,6 +187,14 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
             className="wp-content"
             dangerouslySetInnerHTML={{ __html: post.content }}
           />
+          <div className="mt-12 border-t border-white/10 pt-8">
+            <Link
+              href="/"
+              className="inline-flex items-center text-sm font-black text-[#ff5f7a] hover:text-[#f7d680]"
+            >
+              대전호빠 대전톰바 예약 안내 보기 →
+            </Link>
+          </div>
         </div>
       </article>
     </main>

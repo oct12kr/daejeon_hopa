@@ -59,33 +59,6 @@ const timeTips = [
   }
 ];
 
-const faqs = [
-  {
-    q: "대전호빠 톰바 룸 예약 및 초이스 진행은 어떻게 되나요?",
-    a: "담당 유진실장에게 직통 번호로 연락 주시면, 실시간 룸 현황 파악 후 신속하게 최상급 세팅을 준비해 드립니다."
-  },
-  {
-    q: "호빠 방문이 처음인데 시스템 안내가 가능한가요?",
-    a: "첫 방문 고객님을 위해 맞춤형 브리핑과 투명한 주류 가격을 사전에 안내해 드리며, 어색함 없이 즐기실 수 있도록 전담 케어해 드립니다."
-  },
-  {
-    q: "1인 혼술이나 단체 회식 방문도 가능한가요?",
-    a: "1인 방문을 위한 프라이빗 세팅부터, 대규모 생일파티 및 회식을 완벽히 소화할 수 있는 대형 VIP 룸까지 모두 완비되어 있습니다."
-  },
-  {
-    q: "입장 시 드레스코드 제한이 있나요?",
-    a: "엄격한 제한은 없으나, 대전톰바 VIP 라운지의 분위기에 맞는 모던하고 깔끔한 댄디룩을 권장해 드리고 있습니다."
-  },
-  {
-    q: "늦은 시간 당일 방문도 바로 가능한가요?",
-    a: "평일 및 주말 모두 당일 방문이 가능합니다. 단, 주말 피크 타임에는 룸이 만실일 수 있으니 출발 전 미리 연락해 주시면 쾌적하게 안내해 드립니다."
-  },
-  {
-    q: "차량 방문 시 주차 및 발렛 서비스가 되나요?",
-    a: "도착 전 미리 말씀해 주시면, 봉명동 인근의 안전한 주차 공간 안내 및 발렛 서비스를 신속하게 도와드립니다."
-  }
-];
-
 const websiteSchema = {
   "@context": "https://schema.org",
   "@type": "WebSite",
@@ -102,9 +75,9 @@ const localBusinessSchema = {
     "대전시 유성구 봉명동 445-13번지 GS편의점 2층 톰바 대전호빠 예약 상담. 가격 안내, 방문 케어, 재방문 고객 관리, 시크릿 가이드 서비스.",
   url: siteUrl,
   image: [
-    `${siteUrl}/images/seven%20(1).png`,
-    `${siteUrl}/images/seven%20(2).png`,
-    `${siteUrl}/images/seven%20(3).png`
+    `${siteUrl}/images/tomba%20(1).webp`,
+    `${siteUrl}/images/tomba%20(3).webp`,
+    `${siteUrl}/images/tomba%20(4-2).webp`
   ],
   telephone: phoneDisplay,
   priceRange: "상담 후 안내",
@@ -124,19 +97,6 @@ const localBusinessSchema = {
   }
 };
 
-const faqSchema = {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  mainEntity: faqs.map((faq) => ({
-    "@type": "Question",
-    name: faq.q,
-    acceptedAnswer: {
-      "@type": "Answer",
-      text: faq.a
-    }
-  }))
-};
-
 function JsonLd({ data }: { data: Record<string, unknown> }) {
   return (
     <script
@@ -151,7 +111,6 @@ export default function Home() {
     <main className="min-h-screen overflow-hidden bg-transparent text-[#fffaf7]">
       <JsonLd data={websiteSchema} />
       <JsonLd data={localBusinessSchema} />
-      <JsonLd data={faqSchema} />
 
       <section
         id="hero"
@@ -159,7 +118,7 @@ export default function Home() {
         className="relative isolate min-h-screen pt-20 border-b border-white/5 flex items-center justify-center"
       >
         <Image
-          src="/images/tomba (1).png"
+          src="/images/tomba (1).webp"
           alt="대전 톰바 메인"
           fill
           priority
@@ -183,6 +142,9 @@ export default function Home() {
             id="hero-title"
             className="text-6xl md:text-[80px] lg:text-[90px] font-black text-white tracking-tighter leading-[1.1] drop-shadow-2xl"
           >
+            <span className="block text-base md:text-xl lg:text-2xl font-semibold tracking-[0.25em] text-[#d4af37] mb-3">
+              대전호빠
+            </span>
             대전 톰바
           </h1>
           
@@ -342,7 +304,7 @@ export default function Home() {
         className="relative isolate border-b border-white/5 py-24 min-h-[600px] flex items-center bg-[#050507] overflow-hidden"
       >
         <Image
-          src="/images/tomba (3).png"
+          src="/images/tomba (3).webp"
           alt="대전호빠 대전톰바 VIP 룸"
           fill
           sizes="100vw"
@@ -362,7 +324,7 @@ export default function Home() {
             <div className="w-[1px] h-20 bg-gradient-to-b from-[#d4af37]/80 to-transparent my-8" />
             
             <p className="text-base md:text-lg text-white/80 font-light tracking-wide leading-loose">
-              대전 톰바는
+              대전호빠 대전톰바는
               <br />
               프라이빗한 공간과
               <br />
@@ -406,18 +368,18 @@ export default function Home() {
               High-End Space
             </h2>
             <p className="mt-6 text-base text-white/50 font-light max-w-2xl mx-auto break-keep">
-              대전톰바는 고객님의 완벽한 밤을 위해 최고급 명품 인테리어와 디테일한 조명 세팅을 완성했습니다.
+              대전호빠 대전톰바는 고객님의 완벽한 밤을 위해 최고급 명품 인테리어와 디테일한 조명 세팅을 완성했습니다.
             </p>
           </div>
 
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {[
-              { title: "ENTRANCE", desc: "고급스러운 입구", img: "/images/tomba (4-1).png" },
-              { title: "VIP ROOM", desc: "프라이빗 룸", img: "/images/tomba (4-2).png" },
-              { title: "PREMIUM BAR", desc: "프리미엄 바", img: "/images/tomba (4-3).png" },
-              { title: "PREMIUM LOUNGE", desc: "럭셔리 라운지", img: "/images/tomba (4-4).png" },
-              { title: "SPECIAL MOMENT", desc: "즐거운 분위기", img: "/images/tomba (4-5).png" },
-              { title: "INTERIOR", desc: "세련된 인테리어", img: "/images/tomba (4-6).png" }
+              { title: "ENTRANCE", desc: "고급스러운 입구", img: "/images/tomba (4-1).webp" },
+              { title: "VIP ROOM", desc: "프라이빗 룸", img: "/images/tomba (4-2).webp" },
+              { title: "PREMIUM BAR", desc: "프리미엄 바", img: "/images/tomba (4-3).webp" },
+              { title: "PREMIUM LOUNGE", desc: "럭셔리 라운지", img: "/images/tomba (4-4).webp" },
+              { title: "SPECIAL MOMENT", desc: "즐거운 분위기", img: "/images/tomba (4-5).webp" },
+              { title: "INTERIOR", desc: "세련된 인테리어", img: "/images/tomba (4-6).webp" }
             ].map((item, idx) => (
               <div 
                 key={item.title}
@@ -426,7 +388,7 @@ export default function Home() {
                 {/* Background Image with Hover Scale */}
                 <Image
                   src={item.img}
-                  alt={item.title}
+                  alt={`대전톰바 ${item.desc}`}
                   fill
                   sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                   className="object-cover transition-transform duration-[400ms] group-hover:scale-105"
@@ -464,9 +426,9 @@ export default function Home() {
               이것만 확인하세요.
             </h2>
             <p className="mt-6 text-base text-white/50 font-light max-w-lg mx-auto leading-relaxed break-keep">
-              예약부터 방문까지, 편안하고 만족스러운 시간을 위한
+              대전호빠 대전톰바 방문이 처음이시라면, 예약부터 방문까지
               <br className="hidden sm:block" />
-              간단한 가이드를 준비했습니다.
+              편안하고 만족스러운 시간을 위한 간단한 가이드를 준비했습니다.
             </p>
           </div>
 

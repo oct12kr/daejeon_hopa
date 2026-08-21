@@ -90,7 +90,7 @@ function normalizeRestPost(post: WpRestPost): BlogPost {
     if (match?.[1]) {
       featuredImageSourceUrl = match[1];
     } else {
-      featuredImageSourceUrl = "/images/tomba (1).png"; // Fallback image
+      featuredImageSourceUrl = "/images/tomba (1).webp"; // Fallback image
     }
   }
 

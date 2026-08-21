@@ -40,9 +40,9 @@ export const metadata: Metadata = {
     description,
     images: [
       {
-        url: "/images/seven%20(1).png",
-        width: 2400,
-        height: 1000,
+        url: "/images/tomba%20(1).webp",
+        width: 1672,
+        height: 941,
         alt: "대전톰바 예약 상담"
       }
     ]
@@ -51,7 +51,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: defaultTitle,
     description,
-    images: ["/images/seven%20(1).png"]
+    images: ["/images/tomba%20(1).webp"]
   },
   robots: {
     index: true,
