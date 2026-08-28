@@ -4,7 +4,9 @@ import { siteUrl } from "@/lib/constants";
 export const revalidate = 3600;
 
 export async function GET() {
-  const posts = await getBlogPosts(20);
+  // WordPress API 실패 시에도 피드 응답 자체가 500으로 깨지지 않도록
+  // sitemap.ts와 동일하게 방어적으로 처리(SEO 콘텐츠 변경 아님).
+  const posts = await getBlogPosts(20).catch(() => []);
 
   const rssFeed = `<?xml version="1.0" encoding="UTF-8" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">

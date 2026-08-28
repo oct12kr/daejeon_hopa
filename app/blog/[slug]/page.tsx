@@ -33,7 +33,9 @@ function buildDescription(excerpt: string, title: string) {
 export async function generateMetadata({ params }: BlogPostPageProps): Promise<Metadata> {
   const { slug: rawSlug } = await params;
   const slug = decodeURIComponent(rawSlug);
-  const post = await getBlogPostBySlug(slug).catch(() => null);
+  // WordPress API 실패 시 여기서 예외를 삼키지 않고 그대로 전파해서(빈 결과로
+  // 위장하지 않음) 직전에 성공한 캐시된 페이지가 유지되도록 한다.
+  const post = await getBlogPostBySlug(slug);
 
   if (!post) {
     return {
@@ -71,7 +73,11 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
 export default async function BlogPostPage({ params }: BlogPostPageProps) {
   const { slug: rawSlug } = await params;
   const slug = decodeURIComponent(rawSlug);
-  const post = await getBlogPostBySlug(slug).catch(() => null);
+  // getBlogPostBySlug는 WordPress가 정상 응답했지만 해당 slug가 실제로
+  // 없을 때만 null을 반환한다. API 호출 자체가 실패하면 예외를 던지므로
+  // 여기서 notFound()로 잘못 처리되지 않고, 직전에 성공한 캐시된 페이지가
+  // 유지된다.
+  const post = await getBlogPostBySlug(slug);
 
   if (!post) {
     notFound();

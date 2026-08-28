@@ -137,39 +137,71 @@ function normalizeRestPost(post: WpRestPost): BlogPost {
   };
 }
 
-export async function getBlogPosts(first = 12): Promise<BlogPostSummary[]> {
-  try {
+// WordPress fetch가 실패(타임아웃/네트워크 오류/5xx 등)했을 때 던지는 오류.
+// "정상 응답인데 게시글이 0건"인 경우와 구분하기 위해 사용한다.
+// 이 오류를 던지면(catch해서 빈 배열/null로 바꾸지 않으면) Next.js가 실패한
+// 결과를 정상 데이터처럼 캐시하지 않고, ISR 재검증 시 직전에 성공한
+// 캐시를 계속 서빙한다.
+export class WordPressFetchError extends Error {
+  constructor(message: string) {
+    super(message);
+    this.name = "WordPressFetchError";
+  }
+}
+
+async function fetchWordPressJSON(url: string): Promise<unknown> {
+  const MAX_ATTEMPTS = 2;
+  let lastError: unknown;
+
+  for (let attempt = 1; attempt <= MAX_ATTEMPTS; attempt++) {
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), 10000);
-    
-    const res = await fetch(`${WP_REST_URL}/posts?_embed=1&per_page=${first}`, {
-      next: { revalidate: 300 },
-      signal: controller.signal
-    });
-    
-    clearTimeout(timeoutId);
-    
-    if (!res.ok) return [];
-    const posts = await res.json();
-    return posts.map(normalizeRestPost).map((post: BlogPost): BlogPostSummary => {
-      const summary: BlogPostSummary = {
-        id: post.id,
-        title: post.title,
-        slug: post.slug,
-        uri: post.uri,
-        date: post.date,
-        modified: post.modified,
-        excerpt: post.excerpt,
-        author: post.author,
-        categories: post.categories,
-        featuredImage: post.featuredImage
-      };
-      return summary;
-    });
-  } catch (e) {
-    console.error("getBlogPosts Error:", e);
-    return [];
+
+    try {
+      const res = await fetch(url, {
+        next: { revalidate: 300 },
+        signal: controller.signal
+      });
+      clearTimeout(timeoutId);
+
+      if (!res.ok) {
+        throw new WordPressFetchError(`WordPress API responded with ${res.status}`);
+      }
+      return await res.json();
+    } catch (e) {
+      clearTimeout(timeoutId);
+      lastError = e;
+      console.error(`WordPress API fetch failed (attempt ${attempt}/${MAX_ATTEMPTS}) for ${url}:`, e);
+      if (attempt < MAX_ATTEMPTS) {
+        await new Promise((resolve) => setTimeout(resolve, 500));
+      }
+    }
   }
+
+  throw lastError instanceof Error
+    ? lastError
+    : new WordPressFetchError("WordPress API request failed");
+}
+
+function toSummary(post: BlogPost): BlogPostSummary {
+  return {
+    id: post.id,
+    title: post.title,
+    slug: post.slug,
+    uri: post.uri,
+    date: post.date,
+    modified: post.modified,
+    excerpt: post.excerpt,
+    author: post.author,
+    categories: post.categories,
+    featuredImage: post.featuredImage
+  };
+}
+
+export async function getBlogPosts(first = 12): Promise<BlogPostSummary[]> {
+  const data = await fetchWordPressJSON(`${WP_REST_URL}/posts?_embed=1&per_page=${first}`);
+  const posts = data as WpRestPost[];
+  return posts.map(normalizeRestPost).map(toSummary);
 }
 
 export async function getBlogPostsByCategory(
@@ -180,73 +212,26 @@ export async function getBlogPostsByCategory(
     'aaa': 2,
     'bbb': 3
   };
-  
+
   const categoryId = CATEGORY_MAP[categorySlug];
   let url = `${WP_REST_URL}/posts?_embed=1&per_page=${first}`;
-  
+
   if (categoryId) {
     url += `&categories=${categoryId}`;
   }
 
-  try {
-    const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 10000);
-
-    const res = await fetch(url, {
-      next: { revalidate: 300 },
-      signal: controller.signal
-    });
-    
-    clearTimeout(timeoutId);
-
-    if (!res.ok) {
-      console.error(`WP REST API Error: ${res.status}`);
-      return [];
-    }
-    const posts = await res.json();
-    return posts.map(normalizeRestPost).map((post: BlogPost): BlogPostSummary => {
-      const summary: BlogPostSummary = {
-        id: post.id,
-        title: post.title,
-        slug: post.slug,
-        uri: post.uri,
-        date: post.date,
-        modified: post.modified,
-        excerpt: post.excerpt,
-        author: post.author,
-        categories: post.categories,
-        featuredImage: post.featuredImage
-      };
-      return summary;
-    });
-  } catch (e) {
-    console.error("getBlogPostsByCategory Error:", e);
-    return [];
-  }
+  const data = await fetchWordPressJSON(url);
+  const posts = data as WpRestPost[];
+  return posts.map(normalizeRestPost).map(toSummary);
 }
 
 export const getBlogPostBySlug = cache(async (slug: string): Promise<BlogPost | null> => {
-  try {
-    const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 10000);
-
-    const res = await fetch(`${WP_REST_URL}/posts?_embed=1&slug=${slug}`, {
-      next: { revalidate: 300 },
-      signal: controller.signal
-    });
-
-    clearTimeout(timeoutId);
-
-    if (!res.ok) return null;
-    const posts = await res.json();
-    if (posts && posts.length > 0) {
-      return normalizeRestPost(posts[0]);
-    }
-    return null;
-  } catch (e) {
-    console.error("getBlogPostBySlug Error:", e);
-    return null;
+  const data = await fetchWordPressJSON(`${WP_REST_URL}/posts?_embed=1&slug=${slug}`);
+  const posts = data as WpRestPost[];
+  if (posts && posts.length > 0) {
+    return normalizeRestPost(posts[0]);
   }
+  return null;
 });
 
 export async function getBlogPostSlugs(first = 50) {

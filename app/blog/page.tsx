@@ -175,9 +175,12 @@ function ColumnFallback({ title }: { title: string }) {
 
 export default async function BlogPage() {
   // 병렬로 이용정보와 대전호빠의 포스팅 가져오기 (각각 18개씩)
+  // WordPress API 호출이 실패하면 여기서 예외가 위로 전파되어(빈 배열로
+  // 대체되지 않음) Next.js가 실패 결과를 정상 캐시로 저장하지 않고
+  // 직전에 성공한 페이지를 계속 서빙한다.
   const [sevenNightPosts, waiterPosts] = await Promise.all([
-    getBlogPostsByCategory("aaa", 18).catch(() => null),
-    getBlogPostsByCategory("bbb", 18).catch(() => null)
+    getBlogPostsByCategory("aaa", 18),
+    getBlogPostsByCategory("bbb", 18)
   ]);
 
   return (
