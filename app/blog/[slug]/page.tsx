@@ -30,6 +30,19 @@ function buildDescription(excerpt: string, title: string) {
   return description.length > 150 ? `${description.slice(0, 147)}...` : description;
 }
 
+// 홈페이지로 연결되는 내부링크 문구를 게시글마다 동일하게 반복하지 않도록
+// 자연스러운 표현 몇 가지를 게시글 id 기준으로 고정 배정한다.
+const HOME_LINK_LABELS = [
+  "대전호빠 대전톰바 예약 안내 보기",
+  "대전톰바 홈페이지에서 예약 상담하기",
+  "대전호빠 예약 상담 바로가기",
+  "대전톰바 공간 소개 보러 가기"
+];
+
+function homeLinkLabel(postId: number) {
+  return HOME_LINK_LABELS[postId % HOME_LINK_LABELS.length];
+}
+
 export async function generateMetadata({ params }: BlogPostPageProps): Promise<Metadata> {
   const { slug: rawSlug } = await params;
   const slug = decodeURIComponent(rawSlug);
@@ -198,7 +211,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
               href="/"
               className="inline-flex items-center text-sm font-black text-[#ff5f7a] hover:text-[#f7d680]"
             >
-              대전호빠 대전톰바 예약 안내 보기 →
+              {homeLinkLabel(post.id)} →
             </Link>
           </div>
         </div>

@@ -63,6 +63,7 @@ const websiteSchema = {
   "@context": "https://schema.org",
   "@type": "WebSite",
   name: "대전톰바",
+  alternateName: "대전호빠",
   url: siteUrl,
 };
 
@@ -119,7 +120,7 @@ export default function Home() {
       >
         <Image
           src="/images/tomba (1).webp"
-          alt="대전 톰바 메인"
+          alt="대전호빠 대전톰바 프라이빗 라운지 메인 이미지"
           fill
           priority
           sizes="100vw"
@@ -142,12 +143,12 @@ export default function Home() {
             id="hero-title"
             className="text-6xl md:text-[80px] lg:text-[90px] font-black text-white tracking-tighter leading-[1.1] drop-shadow-2xl"
           >
-            <span className="block text-base md:text-xl lg:text-2xl font-semibold tracking-[0.25em] text-[#d4af37] mb-3">
-              대전호빠
+            대전호빠
+            <span className="block text-lg md:text-2xl lg:text-3xl font-semibold tracking-[0.25em] text-[#d4af37] mt-4">
+              대전톰바
             </span>
-            대전 톰바
           </h1>
-          
+
           {/* 서브 타이틀 (Gold) */}
           <p className="mt-8 text-xl md:text-3xl font-light text-[#d4af37] tracking-widest leading-relaxed">
             당신을 위한
@@ -157,11 +158,11 @@ export default function Home() {
 
           {/* 설명 */}
           <p className="mt-6 text-sm md:text-base text-white/60 font-light tracking-wide leading-loose">
-            프라이빗한 분위기,
+            대전호빠를 찾는 분들을 위한
             <br />
-            세련된 공간,
+            프라이빗한 공간, 대전톰바입니다.
             <br />
-            그리고 특별한 순간을 경험하세요.
+            세련된 분위기와 특별한 순간을 경험하세요.
           </p>
 
           {/* Gold Divider */}

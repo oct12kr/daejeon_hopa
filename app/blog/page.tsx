@@ -179,8 +179,8 @@ export default async function BlogPage() {
   // 대체되지 않음) Next.js가 실패 결과를 정상 캐시로 저장하지 않고
   // 직전에 성공한 페이지를 계속 서빙한다.
   const [sevenNightPosts, waiterPosts] = await Promise.all([
-    getBlogPostsByCategory("aaa", 18),
-    getBlogPostsByCategory("bbb", 18)
+    getBlogPostsByCategory("aaa", 60),
+    getBlogPostsByCategory("bbb", 60)
   ]);
 
   return (
@@ -199,8 +199,8 @@ export default async function BlogPage() {
               소식과 방문 가이드
             </h1>
             <p className="text-lg leading-8 text-white/72">
-              워드프레스에서 카테고리별 실시간 소식을 모아두었습니다.
-              원하시는 정보를 좌우 2개의 컬럼에서 바로 확인하세요.
+              대전호빠를 처음 찾는 분들을 위한 이용 안내부터 대전톰바 방문 후기까지,
+              카테고리별 실시간 소식을 좌우 2개의 컬럼에서 바로 확인하세요.
             </p>
           </div>
         </div>

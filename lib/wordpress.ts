@@ -1,7 +1,9 @@
 import { cache } from 'react';
+import { siteUrl } from '@/lib/constants';
 
 // 워드프레스 API URL (환경변수에서 읽어옴)
 const WP_REST_URL = process.env.NEXT_PUBLIC_WORDPRESS_API_URL || 'https://wordpress-1628102-6522287.cloudwaysapps.com/wp-json/wp/v2';
+const WP_ORIGIN = new URL(WP_REST_URL).origin;
 
 export type BlogPostSummary = {
   id: number;
@@ -59,11 +61,30 @@ function cleanText(html: string) {
   return html.replace(/<[^>]*>?/gm, '').replace(/&nbsp;/g, ' ').trim();
 }
 
+// 워드프레스 본문 안에 워드프레스 원본 도메인(cloudwaysapps.com)을 가리키는
+// <a href> 링크가 그대로 들어있으면, 방문자와 구글이 실제 서비스 도메인이 아닌
+// 워드프레스 백엔드 원본 주소로 이동/색인하게 된다. 게시글 permalink로 보이는
+// 경로만 프론트엔드 /blog/{slug} 주소로 치환한다. 이미지 src(wp-content 업로드)는
+// next.config.ts에 허용된 워드프레스 도메인을 그대로 사용하므로 건드리지 않는다.
+function rewriteWordPressContentLinks(html: string) {
+  if (!html) return html;
+  const escapedOrigin = WP_ORIGIN.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  const hrefPattern = new RegExp(`href="${escapedOrigin}(/[^"]*)"`, 'g');
+
+  return html.replace(hrefPattern, (match, path: string) => {
+    if (/^\/(wp-content|wp-json|wp-admin|wp-includes|feed)(\/|$)/.test(path)) {
+      return match;
+    }
+    const slug = path.replace(/^\/+|\/+$/g, '');
+    return slug ? `href="${siteUrl}/blog/${slug}"` : `href="${siteUrl}/"`;
+  });
+}
+
 function normalizeRestPost(post: WpRestPost): BlogPost {
   const title = cleanText(post.title?.rendered || '');
   const slug = post.slug;
   const excerpt = cleanText(post.excerpt?.rendered || '');
-  const content = post.content?.rendered || '';
+  const content = rewriteWordPressContentLinks(post.content?.rendered || '');
   
   let author = "대전톰바";
   if (post._embedded?.author?.[0]?.name) {
@@ -234,7 +255,7 @@ export const getBlogPostBySlug = cache(async (slug: string): Promise<BlogPost | 
   return null;
 });
 
-export async function getBlogPostSlugs(first = 50) {
+export async function getBlogPostSlugs(first = 100) {
   const posts = await getBlogPosts(first);
   return posts.map(post => ({
     slug: post.slug,
