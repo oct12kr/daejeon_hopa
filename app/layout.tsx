@@ -3,8 +3,8 @@ import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import FloatingActionButtons from "@/components/FloatingActionButtons";
+import { siteUrl } from "@/lib/constants";
 
-const siteUrl = "https://www.daejeonhopa.com";
 const defaultTitle = "대전호빠 | 대전톰바 010-5955-6174 유진실장";
 const description =
   "대전호빠를 찾는다면 대전톰바 010-5955-6174 유진실장입니다. 프라이빗 VIP룸과 품격 있는 서비스로 특별한 시간을 완성하며, 유진실장이 예약부터 마무리까지 직접 안내합니다.";

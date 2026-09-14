@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import { getBlogPostsByCategory } from "@/lib/wordpress";
+import { siteUrl } from "@/lib/constants";
 
 export const revalidate = 300;
 
@@ -38,13 +39,32 @@ function JsonLd({ data }: { data: Record<string, unknown> }) {
 const blogSchema = {
   "@context": "https://schema.org",
   "@type": "Blog",
-  "url": "https://www.daejeonhopa.com/blog",
+  "url": `${siteUrl}/blog`,
   "name": "블로그 | 대전톰바 대전호빠",
   "description": "대전톰바 대전호빠 예약 안내, 방문 팁, 분위기와 가격 상담 정보를 정리한 블로그입니다.",
   "publisher": {
     "@type": "Organization",
     "name": "대전톰바"
   }
+};
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    {
+      "@type": "ListItem",
+      position: 1,
+      name: "홈",
+      item: `${siteUrl}/`
+    },
+    {
+      "@type": "ListItem",
+      position: 2,
+      name: "블로그",
+      item: `${siteUrl}/blog`
+    }
+  ]
 };
 
 function formatDate(value: string | null) {
@@ -186,9 +206,19 @@ export default async function BlogPage() {
   return (
     <main className="min-h-screen bg-transparent text-[#fffaf7]">
       <JsonLd data={blogSchema} />
+      <JsonLd data={breadcrumbSchema} />
       {/* 최상단 인트로 섹션 */}
       <section className="border-b border-white/10 bg-white/[0.02] py-16 md:py-20">
         <div className="mx-auto max-w-7xl px-5">
+          <nav aria-label="breadcrumb" className="mb-4 text-xs font-medium text-white/50">
+            <ol className="flex items-center gap-2">
+              <li>
+                <Link href="/" className="hover:text-[#f7d680] transition">홈</Link>
+              </li>
+              <li aria-hidden="true">/</li>
+              <li aria-current="page" className="text-white/70">블로그</li>
+            </ol>
+          </nav>
           <p className="text-sm font-black uppercase tracking-[0.18em] text-[#f7d680]">
             Blog
           </p>

@@ -1,7 +1,6 @@
 import type { MetadataRoute } from "next";
 import { getBlogPostSlugs } from "@/lib/wordpress";
-
-const siteUrl = "https://www.daejeonhopa.com";
+import { siteUrl } from "@/lib/constants";
 
 // 홈페이지 콘텐츠가 실제로 마지막으로 수정된 시점. 매 요청마다 현재 시간으로
 // 바뀌지 않도록 고정값으로 관리하고, 홈페이지 콘텐츠를 실제로 바꿀 때만 갱신한다.

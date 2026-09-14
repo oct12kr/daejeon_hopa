@@ -3,6 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import { getBlogPostBySlug } from "@/lib/wordpress";
+import { siteUrl } from "@/lib/constants";
 
 export const revalidate = 300;
 
@@ -96,7 +97,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     notFound();
   }
 
-  const postUrl = `https://www.daejeonhopa.com/blog/${post.slug}`;
+  const postUrl = `${siteUrl}/blog/${post.slug}`;
   const description = buildDescription(post.excerpt, post.title);
 
   const articleSchema = {
@@ -104,7 +105,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     "@type": "BlogPosting",
     headline: post.title,
     description,
-    image: post.featuredImage?.sourceUrl || "https://www.daejeonhopa.com/images/tomba%20(1).webp",
+    image: post.featuredImage?.sourceUrl || `${siteUrl}/images/tomba%20(1).webp`,
     author: {
       "@type": "Person",
       name: post.author
@@ -114,7 +115,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
       name: "대전톰바",
       logo: {
         "@type": "ImageObject",
-        url: "https://www.daejeonhopa.com/images/tomba%20(1).webp"
+        url: `${siteUrl}/images/tomba%20(1).webp`
       }
     },
     datePublished: post.date,
@@ -134,13 +135,13 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         "@type": "ListItem",
         position: 1,
         name: "홈",
-        item: "https://www.daejeonhopa.com/"
+        item: `${siteUrl}/`
       },
       {
         "@type": "ListItem",
         position: 2,
         name: "블로그",
-        item: "https://www.daejeonhopa.com/blog"
+        item: `${siteUrl}/blog`
       },
       {
         "@type": "ListItem",
@@ -170,6 +171,19 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                 />
               </div>
             )}
+            <nav aria-label="breadcrumb" className="mb-4 text-xs font-medium text-white/50">
+              <ol className="flex flex-wrap items-center gap-2">
+                <li>
+                  <Link href="/" className="hover:text-[#f7d680] transition">홈</Link>
+                </li>
+                <li aria-hidden="true">/</li>
+                <li>
+                  <Link href="/blog" className="hover:text-[#f7d680] transition">블로그</Link>
+                </li>
+                <li aria-hidden="true">/</li>
+                <li aria-current="page" className="text-white/70 line-clamp-1">{post.title}</li>
+              </ol>
+            </nav>
             <Link
               href="/blog"
               className="text-sm font-black text-[#ff5f7a] hover:text-[#f7d680]"
