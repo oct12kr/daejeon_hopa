@@ -194,11 +194,11 @@ function ColumnFallback({ title }: { title: string }) {
 }
 
 export default async function BlogPage() {
-  // 병렬로 이용정보와 대전호빠의 포스팅 가져오기 (각각 18개씩)
+  // 병렬로 대전호빠(aaa)와 대전톰바(bbb)의 포스팅 가져오기 (각각 최대 60개씩)
   // WordPress API 호출이 실패하면 여기서 예외가 위로 전파되어(빈 배열로
   // 대체되지 않음) Next.js가 실패 결과를 정상 캐시로 저장하지 않고
   // 직전에 성공한 페이지를 계속 서빙한다.
-  const [sevenNightPosts, waiterPosts] = await Promise.all([
+  const [hopaPosts, tombaPosts] = await Promise.all([
     getBlogPostsByCategory("aaa", 60),
     getBlogPostsByCategory("bbb", 60)
   ]);
@@ -240,44 +240,44 @@ export default async function BlogPage() {
       <section className="mx-auto max-w-7xl px-5 py-14 md:py-20">
         <div className="grid gap-12 lg:grid-cols-2 lg:gap-16">
           
-          {/* 왼쪽 단: 이용정보 */}
+          {/* 왼쪽 단: 대전호빠 (slug: aaa) */}
           <div className="flex flex-col gap-6">
             <div className="flex items-center justify-between border-b border-white/10 pb-4">
               <h2 className="text-2xl font-black tracking-tight text-[#f7d680] md:text-3xl">
-                이용정보
+                대전호빠
               </h2>
               <span className="rounded-full bg-[#f7d680]/10 px-3 py-1 text-xs font-bold text-[#f7d680]">
-                이용정보
+                대전호빠
               </span>
             </div>
             
-            {!sevenNightPosts || sevenNightPosts.length === 0 ? (
-              <ColumnFallback title="이용정보" />
+            {!hopaPosts || hopaPosts.length === 0 ? (
+              <ColumnFallback title="대전호빠" />
             ) : (
               <div className="grid grid-cols-3 gap-3">
-                {sevenNightPosts.map((post) => (
+                {hopaPosts.map((post) => (
                   <PostCard key={post.slug} post={post} />
                 ))}
               </div>
             )}
           </div>
 
-          {/* 오른쪽 단: 대전호빠 */}
+          {/* 오른쪽 단: 대전톰바 (slug: bbb) */}
           <div className="flex flex-col gap-6">
             <div className="flex items-center justify-between border-b border-white/10 pb-4">
               <h2 className="text-2xl font-black tracking-tight text-[#ff5f7a] md:text-3xl">
-                대전호빠
+                대전톰바
               </h2>
               <span className="rounded-full bg-[#ff5f7a]/10 px-3 py-1 text-xs font-bold text-[#ff5f7a]">
-                대전호빠
+                대전톰바
               </span>
             </div>
             
-            {!waiterPosts || waiterPosts.length === 0 ? (
-              <ColumnFallback title="대전호빠" />
+            {!tombaPosts || tombaPosts.length === 0 ? (
+              <ColumnFallback title="대전톰바" />
             ) : (
               <div className="grid grid-cols-3 gap-3">
-                {waiterPosts.map((post) => (
+                {tombaPosts.map((post) => (
                   <PostCard key={post.slug} post={post} />
                 ))}
               </div>
