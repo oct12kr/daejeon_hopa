@@ -100,68 +100,65 @@ interface BlogPost {
 function PostCard({ post }: { post: BlogPost }) {
   return (
     <article className="group flex flex-col overflow-hidden rounded-xl border border-white/10 bg-white/[0.03] transition-all duration-300 hover:-translate-y-1 hover:border-[#f7d680]/60 hover:shadow-[0_8px_30px_rgba(247,214,128,0.08)]">
-      {/* 썸네일 이미지 영역 */}
-      <div className="relative h-20 sm:h-24 md:h-28 w-full overflow-hidden bg-gradient-to-br from-[#f7d680]/15 to-[#ff5f7a]/15">
-        {post.featuredImage?.sourceUrl ? (
-          <Image
-            src={post.featuredImage.sourceUrl}
-            alt={post.featuredImage.altText || post.title}
-            fill
-            sizes="(max-width: 768px) 100vw, 33vw"
-            className="object-cover transition-transform duration-500 group-hover:scale-105"
-          />
-        ) : (
-          <div className="flex h-full w-full items-center justify-center p-3 text-center">
-            <span className="text-[10px] font-bold uppercase tracking-wider text-white/30">
-              {post.categories?.[0]?.name || "대전톰바"}
-            </span>
-          </div>
-        )}
-      </div>
-
-      {/* 포스트 정보 영역 */}
-      <div className="flex flex-1 flex-col p-2.5 sm:p-3.5">
-        <div className="flex items-center gap-2">
-          {post.categories?.slice(0, 1).map((category: PostCategory) => (
-            <span
-              key={category.slug}
-              className="rounded-full bg-[#ff5f7a]/10 px-2 py-0.5 text-[9px] sm:text-[10px] font-black text-[#ff5f7a]"
-            >
-              {category.name}
-            </span>
-          ))}
-          <time className="text-[9px] sm:text-[10px] font-medium text-white/40">
-            {formatDate(post.date)}
-          </time>
+      {/* 카드 전체를 하나의 링크로 감싸 어느 영역을 클릭해도 상세페이지로 이동 */}
+      <Link href={`/blog/${post.slug}`} className="flex flex-1 flex-col focus:outline-none">
+        {/* 썸네일 이미지 영역 */}
+        <div className="relative h-20 sm:h-24 md:h-28 w-full overflow-hidden bg-gradient-to-br from-[#f7d680]/15 to-[#ff5f7a]/15">
+          {post.featuredImage?.sourceUrl ? (
+            <Image
+              src={post.featuredImage.sourceUrl}
+              alt={post.featuredImage.altText || post.title}
+              fill
+              sizes="(max-width: 768px) 100vw, 33vw"
+              className="object-cover transition-transform duration-500 group-hover:scale-105"
+            />
+          ) : (
+            <div className="flex h-full w-full items-center justify-center p-3 text-center">
+              <span className="text-[10px] font-bold uppercase tracking-wider text-white/30">
+                {post.categories?.[0]?.name || "대전톰바"}
+              </span>
+            </div>
+          )}
         </div>
 
-        <h3 className="mt-2 text-xs sm:text-sm font-black leading-snug text-[#fffaf7] transition-colors duration-300 group-hover:text-[#ff5f7a] line-clamp-2">
-          <Link href={`/blog/${post.slug}`} className="focus:outline-none">
+        {/* 포스트 정보 영역 */}
+        <div className="flex flex-1 flex-col p-2.5 sm:p-3.5">
+          <div className="flex items-center gap-2">
+            {post.categories?.slice(0, 1).map((category: PostCategory) => (
+              <span
+                key={category.slug}
+                className="rounded-full bg-[#ff5f7a]/10 px-2 py-0.5 text-[9px] sm:text-[10px] font-black text-[#ff5f7a]"
+              >
+                {category.name}
+              </span>
+            ))}
+            <time className="text-[9px] sm:text-[10px] font-medium text-white/40">
+              {formatDate(post.date)}
+            </time>
+          </div>
+
+          <h3 className="mt-2 text-xs sm:text-sm font-black leading-snug text-[#fffaf7] transition-colors duration-300 group-hover:text-[#ff5f7a] line-clamp-2">
             {post.title}
-          </Link>
-        </h3>
+          </h3>
 
-        <p className="mt-1 line-clamp-2 text-[10px] sm:text-xs leading-normal text-white/50">
-          {post.excerpt || "자세한 내용은 글 상세 페이지에서 확인해 주세요."}
-        </p>
+          <p className="mt-1 line-clamp-2 text-[10px] sm:text-xs leading-normal text-white/50">
+            {post.excerpt || "자세한 내용은 글 상세 페이지에서 확인해 주세요."}
+          </p>
 
-        <Link
-          href={`/blog/${post.slug}`}
-          className="mt-auto pt-2.5 inline-flex items-center text-[10px] sm:text-xs font-bold text-[#ff5f7a] group-hover:text-[#f7d680] transition-colors duration-300"
-          aria-label={`${post.title} 자세히 보기`}
-        >
-          자세히 보기
-          <svg
-            className="ml-1 h-3 w-3 transition-transform duration-300 group-hover:translate-x-1"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            strokeWidth={2}
-          >
-            <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
-          </svg>
-        </Link>
-      </div>
+          <span className="mt-auto pt-2.5 inline-flex items-center text-[10px] sm:text-xs font-bold text-[#ff5f7a] group-hover:text-[#f7d680] transition-colors duration-300">
+            자세히 보기
+            <svg
+              className="ml-1 h-3 w-3 transition-transform duration-300 group-hover:translate-x-1"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              strokeWidth={2}
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+            </svg>
+          </span>
+        </div>
+      </Link>
     </article>
   );
 }
