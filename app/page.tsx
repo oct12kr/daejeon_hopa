@@ -119,17 +119,17 @@ export default function Home() {
         className="relative isolate min-h-screen pt-20 border-b border-white/5 flex items-center justify-center"
       >
         <Image
-          src="/images/tomba (1).webp"
+          src="/images/daejeon-hopa-hero.webp"
           alt="대전호빠 대전톰바 프라이빗 라운지 메인 이미지"
           fill
           priority
           sizes="100vw"
-          className="object-cover object-center opacity-70"
+          className="object-cover object-[70%_center] md:object-[60%_center]"
         />
-        {/* 전체적으로 고급스럽게 어둡게 눌러주는 오버레이 */}
-        <div className="absolute inset-0 bg-black/40" />
-        {/* 중앙으로 시선을 모으는 비네팅 효과 (Apple 스타일) */}
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,rgba(5,5,7,0.85)_100%)]" />
+        {/* 왼쪽은 어둡게, 오른쪽 인물은 선명하게 보이도록 하는 그라데이션 오버레이 */}
+        <div className="absolute inset-0 bg-gradient-to-r from-black/75 via-black/50 to-black/20" />
+        {/* 텍스트 가독성을 위한 상·하단 비네팅 */}
+        <div className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(5,5,7,0.55)_0%,transparent_30%,transparent_70%,rgba(5,5,7,0.85)_100%)]" />
 
         <div className="relative z-10 mx-auto max-w-5xl px-5 text-center flex flex-col items-center">
           
