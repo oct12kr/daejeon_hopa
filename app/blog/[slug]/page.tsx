@@ -2,10 +2,17 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import { notFound } from "next/navigation";
-import { getBlogPostBySlug } from "@/lib/wordpress";
+import RelatedPosts from "@/components/RelatedPosts";
+import { getBlogPostBySlug, getRelatedPosts } from "@/lib/wordpress";
 import { siteUrl } from "@/lib/constants";
 
 export const revalidate = 300;
+
+// 게시글 페이지를 첫 요청 때 생성해 ISR로 캐시한다. (이 설정이 없으면 매 요청마다
+// 동적 렌더링되어 WordPress 장애 시 직전에 성공한 페이지를 서빙하지 못한다.)
+export function generateStaticParams() {
+  return [];
+}
 
 type BlogPostPageProps = {
   params: Promise<{
@@ -96,6 +103,9 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   if (!post) {
     notFound();
   }
+
+  // 같은 카테고리 최신 글 우선(현재 글 제외), 최대 5개
+  const relatedPosts = await getRelatedPosts(post);
 
   const postUrl = `${siteUrl}/blog/${post.slug}`;
   const description = buildDescription(post.excerpt, post.title);
@@ -230,6 +240,10 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
           </div>
         </div>
       </article>
+
+      <div className="mx-auto max-w-6xl px-5 pb-16 md:pb-20">
+        <RelatedPosts posts={relatedPosts} />
+      </div>
     </main>
   );
 }

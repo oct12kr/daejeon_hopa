@@ -170,7 +170,18 @@ export class WordPressFetchError extends Error {
   }
 }
 
-async function fetchWordPressJSON(url: string): Promise<unknown> {
+type WordPressResponse = {
+  data: unknown;
+  headers: Headers;
+};
+
+// invalidPageAsNull: 존재하지 않는 페이지 번호(page가 총 페이지 수 초과)를 요청하면
+// WordPress가 400(rest_post_invalid_page_number)을 반환한다. 이는 API 장애가 아니라
+// "그런 페이지가 없음"이므로 오류로 던지지 않고 null로 구분해 돌려준다.
+async function fetchWordPress(
+  url: string,
+  options?: { invalidPageAsNull?: boolean }
+): Promise<WordPressResponse | null> {
   const MAX_ATTEMPTS = 2;
   let lastError: unknown;
 
@@ -186,9 +197,15 @@ async function fetchWordPressJSON(url: string): Promise<unknown> {
       clearTimeout(timeoutId);
 
       if (!res.ok) {
+        if (options?.invalidPageAsNull && res.status === 400) {
+          const body = (await res.json().catch(() => null)) as { code?: string } | null;
+          if (body?.code === "rest_post_invalid_page_number") {
+            return null;
+          }
+        }
         throw new WordPressFetchError(`WordPress API responded with ${res.status}`);
       }
-      return await res.json();
+      return { data: await res.json(), headers: res.headers };
     } catch (e) {
       clearTimeout(timeoutId);
       lastError = e;
@@ -202,6 +219,11 @@ async function fetchWordPressJSON(url: string): Promise<unknown> {
   throw lastError instanceof Error
     ? lastError
     : new WordPressFetchError("WordPress API request failed");
+}
+
+async function fetchWordPressJSON(url: string): Promise<unknown> {
+  const response = await fetchWordPress(url);
+  return response?.data;
 }
 
 function toSummary(post: BlogPost): BlogPostSummary {
@@ -225,17 +247,24 @@ export async function getBlogPosts(first = 12): Promise<BlogPostSummary[]> {
   return posts.map(normalizeRestPost).map(toSummary);
 }
 
+// 블로그에서 사용하는 WordPress 카테고리 (slug / ID는 WordPress 실제 값과 동일)
+export const BLOG_CATEGORIES = [
+  { slug: "aaa", id: 2, name: "대전호빠" },
+  { slug: "bbb", id: 3, name: "대전톰바" }
+] as const;
+
+export const BLOG_POSTS_PER_PAGE = 20;
+
+const CATEGORY_MAP: Record<string, number> = Object.fromEntries(
+  BLOG_CATEGORIES.map((category) => [category.slug, category.id])
+);
+
 export async function getBlogPostsByCategory(
   categorySlug: string,
   first = 18
 ): Promise<BlogPostSummary[]> {
-  const CATEGORY_MAP: Record<string, number> = {
-    'aaa': 2,
-    'bbb': 3
-  };
-
   const categoryId = CATEGORY_MAP[categorySlug];
-  let url = `${WP_REST_URL}/posts?_embed=1&per_page=${first}`;
+  let url = `${WP_REST_URL}/posts?_embed=1&per_page=${first}&orderby=date&order=desc`;
 
   if (categoryId) {
     url += `&categories=${categoryId}`;
@@ -244,6 +273,76 @@ export async function getBlogPostsByCategory(
   const data = await fetchWordPressJSON(url);
   const posts = data as WpRestPost[];
   return posts.map(normalizeRestPost).map(toSummary);
+}
+
+export type BlogPostsPage = {
+  posts: BlogPostSummary[];
+  total: number;
+  totalPages: number;
+};
+
+// 블로그 목록 한 페이지(최신순 20개)를 WordPress pagination으로 가져온다.
+// 존재하지 않는 페이지 번호면 null을 반환한다(API 실패는 예외로 전파).
+export async function getBlogPostsPage(
+  page = 1,
+  categorySlug?: string
+): Promise<BlogPostsPage | null> {
+  let url = `${WP_REST_URL}/posts?_embed=1&per_page=${BLOG_POSTS_PER_PAGE}&page=${page}&orderby=date&order=desc`;
+
+  const categoryId = categorySlug ? CATEGORY_MAP[categorySlug] : undefined;
+  if (categoryId) {
+    url += `&categories=${categoryId}`;
+  }
+
+  const response = await fetchWordPress(url, { invalidPageAsNull: true });
+  if (!response) return null;
+
+  const posts = (response.data as WpRestPost[]).map(normalizeRestPost).map(toSummary);
+  const total = Number(response.headers.get("x-wp-total")) || posts.length;
+  const totalPages = Number(response.headers.get("x-wp-totalpages")) || 1;
+
+  return { posts, total, totalPages };
+}
+
+// 카테고리별 게시글 수 (slug -> count)
+export async function getBlogCategoryCounts(): Promise<Record<string, number>> {
+  const ids = BLOG_CATEGORIES.map((category) => category.id).join(",");
+  const data = await fetchWordPressJSON(
+    `${WP_REST_URL}/categories?include=${ids}&_fields=id,slug,count`
+  );
+  const counts: Record<string, number> = {};
+  for (const category of data as Array<{ slug?: string; count?: number }>) {
+    if (category.slug) counts[category.slug] = category.count ?? 0;
+  }
+  return counts;
+}
+
+export const RELATED_POSTS_COUNT = 5;
+
+// 상세 페이지 관련글: 같은 카테고리 최신 글 우선, 현재 글 제외, 부족하면
+// 전체 최신 글로 채운다. 현재 글 1개를 빼고도 5개가 남도록 6개씩 가져온다.
+export async function getRelatedPosts(post: BlogPostSummary): Promise<BlogPostSummary[]> {
+  const related: BlogPostSummary[] = [];
+  const seen = new Set<number>([post.id]);
+
+  const add = (candidates: BlogPostSummary[]) => {
+    for (const candidate of candidates) {
+      if (related.length >= RELATED_POSTS_COUNT) break;
+      if (seen.has(candidate.id)) continue;
+      seen.add(candidate.id);
+      related.push(candidate);
+    }
+  };
+
+  const categorySlug = post.categories.find((category) => CATEGORY_MAP[category.slug])?.slug;
+  if (categorySlug) {
+    add(await getBlogPostsByCategory(categorySlug, RELATED_POSTS_COUNT + 1));
+  }
+  if (related.length < RELATED_POSTS_COUNT) {
+    add(await getBlogPosts(RELATED_POSTS_COUNT + 1));
+  }
+
+  return related;
 }
 
 export const getBlogPostBySlug = cache(async (slug: string): Promise<BlogPost | null> => {
