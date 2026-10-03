@@ -211,12 +211,15 @@ export default function Home() {
                   Premium Process
                 </span>
               </div>
-              <h2 className="text-4xl md:text-5xl lg:text-6xl font-black text-white leading-[1.15] tracking-tighter">
-                <span className="text-transparent bg-clip-text bg-gradient-to-b from-[#fdfbfb] to-[#a0842a]">Perfect</span><br />
-                Experience
+              <h2 className="text-4xl md:text-5xl lg:text-[56px] font-black text-white leading-[1.2] tracking-tighter break-keep">
+                대전호빠 이용 안내
               </h2>
+              <p className="mt-4 text-2xl md:text-3xl lg:text-4xl font-black leading-[1.15] tracking-tighter text-transparent bg-clip-text bg-gradient-to-b from-[#fdfbfb] to-[#a0842a]">
+                Perfect Experience
+              </p>
               <p className="mt-8 text-base md:text-lg leading-relaxed text-white/50 font-light max-w-md break-keep">
-                예약부터 마무리까지, 당신만을 위한 가장 프라이빗하고 섬세한 여정을 선사합니다.
+                대전호빠를 처음 알아보는 분들도 예약부터 방문까지 필요한 내용을 쉽게 확인할 수 있도록 안내합니다.
+                대전톰바에서는 사전 문의와 방문 안내부터 프라이빗 공간 및 이용 과정까지 필요한 정보를 순서대로 확인할 수 있습니다.
               </p>
             </div>
 
@@ -225,8 +228,9 @@ export default function Home() {
               {[
                 {
                   step: "01",
-                  title: "예약문의",
-                  items: ["24시간 문의", "전화 또는 카카오톡 상담", "실시간 예약 가능"],
+                  title: "대전호빠 예약 및 문의",
+                  desc: "대전호빠 방문을 계획하고 있다면 예약 전 필요한 내용과 방문 일정을 미리 확인할 수 있습니다.",
+                  items: ["방문 전 예약 및 문의", "운영시간 및 방문 일정 확인", "궁금한 사항 사전 안내"],
                   icon: (
                     <svg className="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1">
                       <path strokeLinecap="round" strokeLinejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
@@ -235,8 +239,9 @@ export default function Home() {
                 },
                 {
                   step: "02",
-                  title: "맞춤 안내",
-                  items: ["인원 및 방문시간 안내", "예산에 맞는 시스템 설명", "VIP룸 선택 가능"],
+                  title: "처음 방문 이용 안내",
+                  desc: "대전호빠를 처음 방문하는 분들도 이용 과정을 쉽게 확인할 수 있도록 필요한 내용을 안내합니다.",
+                  items: ["처음 방문하는 분들을 위한 안내", "방문 과정 및 이용 방법 확인", "필요한 사항 사전 설명"],
                   icon: (
                     <svg className="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1">
                       <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
@@ -245,8 +250,9 @@ export default function Home() {
                 },
                 {
                   step: "03",
-                  title: "프라이빗 입장",
-                  items: ["프라이빗 룸 안내", "전담 실장 응대", "편안한 분위기 제공"],
+                  title: "프라이빗 공간 안내",
+                  desc: "대전호빠를 알아볼 때 궁금할 수 있는 공간 구성과 이용 형태를 확인할 수 있습니다.",
+                  items: ["독립적인 공간 구성", "이용 형태 안내", "편안한 분위기의 공간"],
                   icon: (
                     <svg className="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1">
                       <path strokeLinecap="round" strokeLinejoin="round" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z" />
@@ -255,8 +261,9 @@ export default function Home() {
                 },
                 {
                   step: "04",
-                  title: "만족스러운 시간",
-                  items: ["편안한 서비스", "쾌적한 공간", "마무리까지 친절한 안내"],
+                  title: "방문 전 확인사항",
+                  desc: "대전호빠 방문 전에 알아두면 좋은 내용과 자주 확인하는 정보를 정리해 안내합니다.",
+                  items: ["예약 전 확인할 내용", "자주 묻는 사항 안내", "방문 전 필요한 정보 확인"],
                   icon: (
                     <svg className="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1">
                       <path strokeLinecap="round" strokeLinejoin="round" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
@@ -280,10 +287,13 @@ export default function Home() {
                     </span>
                   </div>
 
-                  <div className="relative z-10 mt-8">
-                    <h3 className="text-xl font-medium text-white group-hover:text-[#d4af37] transition-colors duration-300">
+                  <div className="relative z-10 mt-6">
+                    <h3 className="text-xl font-medium text-white group-hover:text-[#d4af37] transition-colors duration-300 break-keep">
                       {card.title}
                     </h3>
+                    <p className="mt-3 text-sm font-light leading-relaxed text-white/45 group-hover:text-white/60 transition-colors duration-300 break-keep">
+                      {card.desc}
+                    </p>
                     <ul className="mt-5 space-y-3">
                       {card.items.map((desc, idx) => (
                         <li key={idx} className="flex items-center gap-3 text-sm font-light text-white/50 group-hover:text-white/70 transition-colors duration-300 break-keep">
